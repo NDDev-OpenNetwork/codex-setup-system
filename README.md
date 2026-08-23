@@ -44,8 +44,6 @@ Point `CODEX_SETUP_SYSTEM_SETUP_CATALOG` at a directory to use setups of your ow
 
 ## What it manages
 
-## What it manages
-
 | | |
 | --- | --- |
 | Product | Codex CLI (OpenAI) |
