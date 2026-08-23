@@ -28,6 +28,9 @@ pub const CODEX: Harness = Harness {
         "AGENTS.md",
         "config.toml",
         "skills",
+        // The compiler routes a codex skill to `.agents/skills`; the product
+        // also reads `skills`. Both are ours, so both are declared.
+        ".agents/skills",
         "plugins",
         "hooks.json",
         "prompts",
