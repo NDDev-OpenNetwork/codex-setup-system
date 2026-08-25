@@ -29,8 +29,8 @@
     "desktop_documented_product": "ChatGPT",
     "desktop_pinned_cli_packaging": "Codex.app/Codex.dmg",
     "installer_asset": "install.sh",
-    "installer_release": "rust-v0.147.0",
-    "installed_version": "0.147.0",
+    "installer_release": "rust-v0.149.1",
+    "installed_version": "0.149.1",
     "standalone_layout": "packages/standalone"
   },
   "verified_version_ref": "build/version.json:codex_cli_tested"
