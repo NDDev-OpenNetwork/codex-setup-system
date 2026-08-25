@@ -24,6 +24,7 @@ pub const CODEX: Harness = Harness {
     config_home_env: "CODEX_HOME",
     control_directory: ".codex-setup-system",
     state_file: "NDDEV-CODEX-PROVIDER.json",
+    predecessor_state_file: "NDDEV-CODEX-SETUP.json",
     profile_id: "codex/native-and-plugins/1",
     // Everything outside this list is a sibling overlay preserved verbatim.
     native_namespaces: &[
