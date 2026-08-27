@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "full-auto",
+  "description": "Full auto: nothing is asked and nothing is sandboxed. `approval_policy` is never and `sandbox_mode` is danger-full-access.",
+  "sources": [
+    "https://learn.chatgpt.com/docs/config-file/config-reference"
+  ]
+}
