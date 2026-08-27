@@ -47,6 +47,9 @@ pub const CODEX: Harness = Harness {
         "cache",
         "shell_snapshots",
     ],
+    // No near neighbour measured for this product. A marker listed here is a
+    // refusal waiting to happen, so nothing is listed without evidence.
+    foreign_homes: &[],
     permission_profiles: &["default"],
     component_kinds: &[
         ComponentKind::Instruction,
