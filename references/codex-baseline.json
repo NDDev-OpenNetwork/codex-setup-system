@@ -94,8 +94,20 @@
         "path": "AGENTS.override.md",
         "reason": "Codex reads this **before** AGENTS.md at global scope and takes only the first non-empty file at that level, so a home holding a non-empty one ignores the instruction file this provider installs. An empty override does not silence the floor -- Codex skips empty files -- which is worth knowing before concluding that a present override is the reason instructions are not applying. Deliberately not owned: an override exists so a person can escape a managed floor, and a provider that owned it could remove the escape with `remove`.",
         "source": "https://learn.chatgpt.com/docs/agent-configuration/agents-md"
+      },
+      {
+        "path": "NDDEV-CODEX-PROVIDER.json",
+        "reason": "This provider's own state file: which setup is applied, the identity it recorded, and which slot reverses the last operation. Written by every operation and excluded from target identity, because counting it would leave a target different from the identity the operation just wrote. Not a projection surface and never ownable as one.",
+        "source": "this provider's own contract; no vendor page is involved"
+      },
+      {
+        "path": ".codex-setup-system",
+        "reason": "This provider's own control directory: the target lock, the backup slots and their payloads. Kept out of the declaration for the same reason as the state file, and recorded here because the declined list is where a reader looks before opening a file to find out what it is.",
+        "source": "this provider's own contract; no vendor page is involved"
       }
-    ]
+    ],
+    "config_home_env": "CODEX_HOME",
+    "config_home_env_note": "Measured 2026-08-28: launched through this provider, the product named the target as its own `codex_home` in its output."
   },
   "software_artifacts": {
     "command": "codex",
