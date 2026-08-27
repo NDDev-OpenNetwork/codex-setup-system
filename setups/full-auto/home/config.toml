@@ -1,0 +1,7 @@
+# Managed by codex-setup-system.
+#
+# Every key here is from learn.chatgpt.com/docs/config-file/config-reference.
+# This setup asks for nothing and sandboxes nothing. That is the whole point of
+# it, and it is why it is a setup you choose rather than the floor you get.
+approval_policy = "never"
+sandbox_mode = "danger-full-access"

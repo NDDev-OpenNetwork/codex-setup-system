@@ -29,54 +29,111 @@
     "desktop_documented_product": "ChatGPT",
     "desktop_pinned_cli_packaging": "Codex.app/Codex.dmg",
     "installer_asset": "install.sh",
-    "installer_release": "rust-v0.150.0",
-    "installed_version": "0.150.0",
+    "installer_release": "rust-v0.150.1",
+    "installed_version": "0.150.1",
     "standalone_layout": "packages/standalone"
   },
   "verified_version_ref": "build/version.json:codex_cli_tested",
-  "verified_at": "2026-08-26T22:57:42+00:00",
+  "verified_at": "2026-08-27T14:58:57+00:00",
+  "native_surfaces": {
+    "verified_at": "2026-08-27",
+    "config_home": "~/.codex",
+    "surfaces": [
+      {
+        "path": "AGENTS.md",
+        "kinds": [
+          "instruction"
+        ],
+        "shape": "file",
+        "source": "https://learn.chatgpt.com/docs/agent-configuration/agents-md"
+      },
+      {
+        "path": "config.toml",
+        "kinds": [
+          "setting"
+        ],
+        "shape": "file",
+        "source": "https://learn.chatgpt.com/docs/config-file/config-reference",
+        "note": "MCP servers live here under [mcp_servers.<name>]; a key inside a file is not a projection surface, so mcp is not declared"
+      },
+      {
+        "path": "hooks.json",
+        "kinds": [
+          "hook"
+        ],
+        "shape": "file",
+        "source": "https://learn.chatgpt.com/docs/config-file/config-reference"
+      },
+      {
+        "path": "prompts",
+        "kinds": [
+          "command"
+        ],
+        "shape": "directory",
+        "source": "https://developers.openai.com/codex/custom-prompts",
+        "note": "$CODEX_HOME/prompts/*.md, each file a slash command"
+      }
+    ],
+    "declined": [
+      {
+        "path": "skills",
+        "reason": "Codex has no skills directory under its own home. It searches $CWD/.agents/skills upward, $REPO_ROOT/.agents/skills, $HOME/.agents/skills and /etc/codex/skills.",
+        "source": "https://learn.chatgpt.com/docs/build-skills"
+      },
+      {
+        "path": ".agents/skills",
+        "reason": "The user-scope skills directory is $HOME/.agents/skills -- a sibling of ~/.codex, not a child of it. Declared relative to this provider's target it resolves to ~/.codex/.agents/skills, which Codex never reads. Same shape as the pi managed_paths defect.",
+        "source": "https://learn.chatgpt.com/docs/build-skills"
+      },
+      {
+        "path": "plugins",
+        "reason": "Codex plugins are drawn from a hosted directory shared with ChatGPT, not from a folder under the Codex home.",
+        "source": "https://developers.openai.com/codex/cli"
+      }
+    ]
+  },
   "software_artifacts": {
     "command": "codex",
     "shape": "gzip-tar",
     "platforms": {
       "linux/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.0-linux-arm64.tgz",
-        "bytes": 121686577,
-        "sha256": "sha256:4e5afecc31eda295a2c093d51238dde1dedefe0c2a0caa901d6f8522c95ca260",
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.1-linux-arm64.tgz",
+        "bytes": 121672045,
+        "sha256": "sha256:a05677acf4c0dd6dbed01ffeaa82dca6337f06856e843787b74ce7bf62019fb4",
         "member": "package/vendor/aarch64-unknown-linux-musl/bin/codex"
       },
       "linux/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.0-linux-x64.tgz",
-        "bytes": 129208020,
-        "sha256": "sha256:0851abe8f5755f5c52f19b4f11acd4c7d588be9011fe974935886ab1ed7c3bd5",
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.1-linux-x64.tgz",
+        "bytes": 129212827,
+        "sha256": "sha256:35a87cf024345cf2d9350e5220401c8d3967ff6feee04055a89c73524927c0a6",
         "member": "package/vendor/x86_64-unknown-linux-musl/bin/codex"
       },
       "macos/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.0-darwin-arm64.tgz",
-        "bytes": 117534364,
-        "sha256": "sha256:627774da9da63beb8d5dfbc669e8e23c46a6f01058059205791532fffbe5c6f5",
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.1-darwin-arm64.tgz",
+        "bytes": 117535191,
+        "sha256": "sha256:e5008a5b8d7a22e2ad2922a74783de8f7202b7b886a181e6ddbec7633609c885",
         "member": "package/vendor/aarch64-apple-darwin/bin/codex"
       },
       "macos/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.0-darwin-x64.tgz",
-        "bytes": 125708292,
-        "sha256": "sha256:c995d40e68a3f5f4c180e5bbc3262cef6acba33566127e2b0b5fea99ef7a9d25",
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.1-darwin-x64.tgz",
+        "bytes": 125709514,
+        "sha256": "sha256:eda09fe3984142b23a52090f4d77ac1198aeff66d7daef5df8d8e71ad02eefda",
         "member": "package/vendor/x86_64-apple-darwin/bin/codex"
       },
       "windows/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.0-win32-arm64.tgz",
-        "bytes": 134609516,
-        "sha256": "sha256:364e7d63a6cf4b4c3bef66796b5e9cbf8755263ca5aaadfd6f11174b8f4b2211",
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.1-win32-arm64.tgz",
+        "bytes": 134678705,
+        "sha256": "sha256:18f253a8453a4ccf96472e5b48b7ea9eaf39b4d2f7ed5dd111eaec4c0580490d",
         "member": "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe"
       },
       "windows/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.0-win32-x64.tgz",
-        "bytes": 143963877,
-        "sha256": "sha256:30c08de651bd35725675f7f104b9898baaa6db053b750f4c44fcb8a07fb277fe",
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.1-win32-x64.tgz",
+        "bytes": 144026855,
+        "sha256": "sha256:ce5aed3601690cceb0ef12c566a18fb467b2f83b7b70b089fbc5b81ab9430c79",
         "member": "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe"
       }
     },
-    "version": "0.150.0",
-    "verified_at": "2026-08-26T22:57:42+00:00"
+    "version": "0.150.1",
+    "verified_at": "2026-08-27T14:58:57+00:00"
   }
 }
