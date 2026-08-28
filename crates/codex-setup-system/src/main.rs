@@ -10,8 +10,8 @@ use std::process::ExitCode;
 
 mod software;
 
-use harness_runtime::Harness;
-use provider_v3::{ComponentKind, ProjectionKind};
+use harness_runtime::{Harness, Scoped};
+use provider_v3::{ComponentKind, ProjectionKind, TargetScope};
 
 /// Everything specific to Codex CLI, verified against `codex-baseline.json`.
 pub const CODEX: Harness = Harness {
@@ -66,7 +66,34 @@ pub const CODEX: Harness = Harness {
     // different root rather than a second scope of this target.
     //
     // Empty rather than absent: a harness that owns one target says so.
-    scoped_projections: &[],
+    // The one root in this estate that belongs to a convention rather than to a
+    // product. `learn.chatgpt.com/docs/build-skills` names `$HOME/.agents/skills`
+    // as the user-level skills directory -- a *sibling* of `~/.codex`, not a
+    // child, so nothing declared against this provider's own target can reach
+    // it. That is what `user_root` exists for, and this is the only scope in
+    // the seven that uses it.
+    //
+    // **Owning a shared root, weighed rather than assumed.** `.agents` is named
+    // for being shared, and an owned namespace is removed whole: a `remove`
+    // here takes `~/.agents/skills` entirely, not only what a setup put there.
+    // Measured 2026-08-28 across all seven baselines, the user-level `.agents`
+    // root is uncontested today -- only Codex documents reading from it, and
+    // Antigravity's `.agents` surfaces are all workspace-level with its global
+    // configuration at `~/.gemini/config/`. If a second product adopts the
+    // user-level root, this declaration is the first thing to re-read.
+    scoped_projections: &[Scoped {
+        target_scope: TargetScope::UserRoot,
+        // Distinct from the global identity, because the digest binds a
+        // declaration together with the scope it owns.
+        profile_id: "codex/native-files/user-root/1",
+        component_kinds: &[ComponentKind::Skill],
+        projection_kinds: &[ProjectionKind::NativeFiles],
+        // Relative to `~/.agents`, which is the target this scope names -- so a
+        // skill is `skills/<name>` rather than `.agents/skills/<name>`. Writing
+        // the root into the path would be the eighth face of one sentence: a
+        // path is only a path together with what it is relative to.
+        native_namespaces: &["skills"],
+    }],
     max_files: 8192,
     max_bytes: 64 * 1024 * 1024,
     kit_identity: include_str!("../../../provider-kit/v3/KIT-IDENTITY.json"),
