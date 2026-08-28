@@ -181,5 +181,6 @@
     },
     "version": "0.150.1",
     "verified_at": "2026-08-27T23:44:19+00:00"
-  }
+  },
+  "setup_catalogue_digest": "sha256:322930d7890d8baf9bb6f869dfdabb93e76b4ac7ab89af8d0aaa8b2dfafa3556"
 }

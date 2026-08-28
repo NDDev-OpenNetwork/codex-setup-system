@@ -57,4 +57,4 @@ jobs:
           suffix=""
           [ "$RUNNER_OS" = "Windows" ] && suffix=".exe"
           exe="target/release/codex-setup-system$suffix"
-          "$py" scripts/evidence.py --binary "$exe" --harness codex --writes "mcp add nddev-evidence -- echo hi"
+          "$py" scripts/evidence.py --binary "$exe" --harness codex --writes "mcp add nddev-evidence -- echo hi" --probe 'doctor' --probe-kind postures --probe-baseline 'OnRequest' --probe-full-auto 'Never'
