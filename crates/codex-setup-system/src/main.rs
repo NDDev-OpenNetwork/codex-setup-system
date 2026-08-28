@@ -77,10 +77,49 @@ pub const CODEX: Harness = Harness {
     // for being shared, and an owned namespace is removed whole: a `remove`
     // here takes `~/.agents/skills` entirely, not only what a setup put there.
     // Measured 2026-08-28 across all seven baselines, the user-level `.agents`
-    // root is uncontested today -- only Codex documents reading from it, and
+    // root looked uncontested: only Codex *documents* reading from it, and
     // Antigravity's `.agents` surfaces are all workspace-level with its global
-    // configuration at `~/.gemini/config/`. If a second product adopts the
-    // user-level root, this declaration is the first thing to re-read.
+    // configuration at `~/.gemini/config/`. That sentence closed with *if a
+    // second product adopts the user-level root, this declaration is the first
+    // thing to re-read*.
+    //
+    // **Four of the seven do, and the sweep that found them read products
+    // rather than pages.** Measured 2026-08-28 from pinned artifacts, digests
+    // verified before reading:
+    //
+    // | product | evidence |
+    // | --- | --- |
+    // | codex | documented: `learn.chatgpt.com/docs/build-skills` |
+    // | grok | its own embedded reference: scans `.agents/skills/` *at each tier*, and the tier table names User |
+    // | opencode | vendor lists *Global agent-compatible: `~/.agents/skills/<name>/SKILL.md`*; the binary carries the literal |
+    // | pi | source, and no page says it: `package-manager.js:2017` |
+    //
+    // The same sweep found a second shared surface, in the other direction:
+    // `~/.claude/skills` is read by grok (*User tier, Lowest, configurable*) and
+    // opencode (*Global Claude-compatible*) as well as by Claude Code. This
+    // provider's neighbour owns it, and a namespace is removed whole -- so a
+    // remove of the Claude setup changes what two other products see.
+    //
+    // Pi's is the one worth keeping the method for. Its pinned `0.84.3` bundle,
+    // `package/dist/core/package-manager.js`: line 1976 builds
+    // `userAgentsSkillsDir = join(getHomeDir(), ".agents", "skills")`, line 2012
+    // names the root itself as its `dirname`, and line 2017 loads from it --
+    // `addResources("skills", collectAutoSkillEntries(userAgentsSkillsDir,
+    // "agents"), ...)`. No Pi page says so. (A neighbouring use in
+    // `trust-manager.js:160` *excludes* that directory while walking up for a
+    // project-scoped one, so the variable name alone would have misread it; the
+    // line that matters is 2017.)
+    //
+    // **What does not change: this declaration stands.** It is measured, it is
+    // Codex's own documented root, and nothing routes to `user_root` yet.
+    //
+    // **What is now open: who owns a root two products read.** Pi is
+    // deliberately *not* given the same scoped profile, recorded in
+    // `pi-baseline.json` under `$HOME/.agents/skills`. Two providers declaring
+    // one path are not two owners -- a namespace is removed whole, so either
+    // one's `remove` under this scope takes the other's skills. Recoverable, and
+    // still a question a shared root deserves one answer to. Raised with the
+    // consumer, whose scope this is.
     scoped_projections: &[Scoped {
         target_scope: TargetScope::UserRoot,
         // Distinct from the global identity, because the digest binds a
