@@ -2,8 +2,7 @@
 
 Report what this harness owns, what it declines, and what decided each row.
 
-Read `references/surfaces.md` if the toolkit is installed. Otherwise ask the
-binary directly:
+Ask the binary directly:
 
 ```bash
 codex-setup-system provider-info
