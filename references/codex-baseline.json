@@ -37,7 +37,8 @@
           "instruction"
         ],
         "shape": "file",
-        "source": "https://learn.chatgpt.com/docs/agent-configuration/agents-md"
+        "source": "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+        "evidence": "page"
       },
       {
         "path": "config.toml",
@@ -46,6 +47,7 @@
         ],
         "shape": "file",
         "source": "https://learn.chatgpt.com/docs/config-file/config-reference",
+        "evidence": "page",
         "note": "MCP servers live here under [mcp_servers.<name>]; a key inside a file is not a projection surface, so mcp is not declared"
       },
       {
@@ -54,7 +56,8 @@
           "hook"
         ],
         "shape": "file",
-        "source": "https://learn.chatgpt.com/docs/config-file/config-reference"
+        "source": "https://learn.chatgpt.com/docs/config-file/config-reference",
+        "evidence": "page"
       },
       {
         "path": "prompts",
@@ -63,6 +66,7 @@
         ],
         "shape": "directory",
         "source": "https://developers.openai.com/codex/custom-prompts",
+        "evidence": "page",
         "note": "$CODEX_HOME/prompts/*.md, each file a slash command"
       },
       {
@@ -70,6 +74,7 @@
         "kinds": [],
         "shape": "directory",
         "source": "https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary",
+        "evidence": "ran",
         "note": "$CODEX_HOME/agents/ -- owned so a backup captures it and a restore returns it, and routing no kind. It carried `agent` until 2026-08-28. The reason it routes nothing is arity, not behaviour: a role is a config.toml stanza ([agents.<name>] with `description` and `config_file`) plus the TOML layer that stanza points at, and a component of one kind is one thing installed in one namespace -- so the route cannot be stated even if the product's behaviour changed. Measured behaviour, which is the weaker half of the reason: running the product against a temporary CODEX_HOME, a bad pointer is reported (\"Ignoring malformed agent role definition: agents.broken-role.config_file must point to an existing file at .../agents/missing.toml\") while an agents/<name>.md beside it was loaded by nothing and complained about by nothing.",
         "reached_by": "config.toml"
       }
