@@ -22,6 +22,8 @@ pub const CODEX: Harness = Harness {
     vendor: "OpenAI",
     documented_config_home: "~/.codex",
     config_home_env: "CODEX_HOME",
+    // One home, one variable: nothing here is conditional.
+    config_home_note: "",
     control_directory: ".codex-setup-system",
     state_file: "NDDEV-CODEX-PROVIDER.json",
     predecessor_state_file: "NDDEV-CODEX-SETUP.json",
