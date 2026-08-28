@@ -26,7 +26,7 @@
     "standalone_layout": "packages/standalone"
   },
   "verified_version_ref": "build/version.json:codex_cli_tested",
-  "verified_at": "2026-08-28T03:43:27+00:00",
+  "verified_at": "2026-08-28T04:41:39+00:00",
   "native_surfaces": {
     "verified_at": "2026-08-27",
     "config_home": "~/.codex",
@@ -181,7 +181,7 @@
       }
     },
     "version": "0.150.1",
-    "verified_at": "2026-08-28T03:43:27+00:00"
+    "verified_at": "2026-08-28T04:41:39+00:00"
   },
   "setup_catalogue_digest": "sha256:322930d7890d8baf9bb6f869dfdabb93e76b4ac7ab89af8d0aaa8b2dfafa3556"
 }
