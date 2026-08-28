@@ -64,6 +64,15 @@
         "shape": "directory",
         "source": "https://developers.openai.com/codex/custom-prompts",
         "note": "$CODEX_HOME/prompts/*.md, each file a slash command"
+      },
+      {
+        "path": "agents",
+        "kinds": [
+          "agent"
+        ],
+        "shape": "directory",
+        "source": "https://developers.openai.com/codex/cli",
+        "note": "Custom agents, as TOML files. The vendor documents the fields -- `name`, `description`, `model`, `model_reasoning_effort`, `developer_instructions` -- and the path literal `.codex/agents` is in the pinned 0.150.1 binary. Declared 2026-08-28, having been neither owned nor recorded: the product supported a global agent directory and no consumer could route an `agent` component here.\n\n**TOML, where claude, opencode and pi take Markdown for the same kind.** The kind names what a component *is*, not what it is written in, and this provider writes a bundle's bytes verbatim -- so the format is the compiler's problem and not this declaration's. Worth knowing before anything treats `agent` as uniform across the seven."
       }
     ],
     "declined": [
