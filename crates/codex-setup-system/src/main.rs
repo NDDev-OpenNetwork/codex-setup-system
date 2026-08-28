@@ -32,7 +32,20 @@ pub const CODEX: Harness = Harness {
     // so declared against this target the second resolved to
     // `~/.codex/.agents/skills`, which the product never reads. The same
     // shape as the pi `managed_paths` defect, one level up.
-    native_namespaces: &["AGENTS.md", "config.toml", "hooks.json", "prompts"],
+    // `agents` was added 2026-08-28. The product has always had it -- the vendor
+    // documents custom agents as TOML files under `~/.codex/agents/`, and the
+    // path literal is in the binary -- and this provider neither owned it nor
+    // recorded it, so a consumer could not route an `agent` component to codex
+    // at all. Widening is safe in the direction a consumer reads: it matches a
+    // route by membership in this list, so a larger set makes more routes valid
+    // and none that were valid invalid.
+    native_namespaces: &[
+        "AGENTS.md",
+        "config.toml",
+        "hooks.json",
+        "prompts",
+        "agents",
+    ],
     // The product's own: credentials, session history and runtime caches. Never
     // read, never written, and never copied into a backup slot.
     never_touch: &[
@@ -56,6 +69,7 @@ pub const CODEX: Harness = Harness {
         ComponentKind::Setting,
         ComponentKind::Hook,
         ComponentKind::Command,
+        ComponentKind::Agent,
     ],
     projection_kinds: &[
         ProjectionKind::NativeFiles,
