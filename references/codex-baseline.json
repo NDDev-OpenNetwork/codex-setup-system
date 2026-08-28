@@ -77,8 +77,8 @@
     "declined": [
       {
         "path": "skills",
-        "reason": "Codex has no skills directory under its own home. It searches $CWD/.agents/skills upward, $REPO_ROOT/.agents/skills, $HOME/.agents/skills and /etc/codex/skills.",
-        "source": "https://learn.chatgpt.com/docs/build-skills"
+        "reason": "Codex does read personal skills from here, and this record used to say it did not. Measured 2026-08-28 by installing the product through this provider and driving it with `debug prompt-input`, which renders the model-visible skills list: a SKILL.md at $CODEX_HOME/skills/<name>/ is listed, with that locator. The earlier reason -- \"Codex has no skills directory under its own home\" -- was read off the page and the page does not say it; it lists where skills are found and is silent about this one. A negative taken from a document that never made it. Declined all the same, for two reasons that compound. First, no page says so: learn.chatgpt.com/docs/build-skills names the working directory and its parents to the repository root, $REPO_ROOT/.agents/skills, $HOME/.agents/skills, /etc/codex/skills, and skills bundled by OpenAI -- not this; and github.com/openai/codex/blob/main/docs/skills.md links to developers.openai.com/codex/skills, which redirects back to that same page, so there is one source reached two ways rather than two sources. Second, the product manages this directory: its own bundled skills materialise at skills/.system/, and deleting that directory entirely made the product rebuild all six on the next start. Owning `skills` would make `remove` delete the product's own along with ours, and the only evidence that this survives is the product's willingness to recover -- behaviour rather than a promise, true until the product changes. The documented user-level path is $HOME/.agents/skills, outside any product's configuration home, which is what the consumer's ADR-0127 proposes a scope for.",
+        "source": "measured through launch; learn.chatgpt.com/docs/build-skills lists six locations and not this one"
       },
       {
         "path": ".agents/skills",
@@ -107,7 +107,36 @@
       }
     ],
     "config_home_env": "CODEX_HOME",
-    "config_home_env_note": "Measured 2026-08-28: launched through this provider, the product named the target as its own `codex_home` in its output."
+    "config_home_env_note": "Measured 2026-08-28: launched through this provider, the product named the target as its own `codex_home` in its output.",
+    "scoped": [
+      {
+        "target_scope": "user_root",
+        "root": "~/.agents",
+        "surfaces": [
+          {
+            "path": "skills",
+            "kinds": [
+              "skill"
+            ],
+            "shape": "directory",
+            "source": "https://learn.chatgpt.com/docs/build-skills",
+            "note": "The documented user-level skills directory is $HOME/.agents/skills. Relative to this scope's own root it is `skills`, not `.agents/skills` -- the root is what the scope names, and writing it into the path again would put the skills at ~/.agents/.agents/skills. Codex also reads $CODEX_HOME/skills, measured, which is declined in the global block and for reasons recorded there."
+          }
+        ],
+        "declined": [
+          {
+            "path": "agents",
+            "reason": "No page names a user-level agents directory under the .agents convention. learn.chatgpt.com/docs/build-skills documents skills at $HOME/.agents/skills and says nothing about siblings; a declared kind is a promise of a rollback, and this one would promise a rollback of a directory nothing reads.",
+            "source": "https://learn.chatgpt.com/docs/build-skills"
+          },
+          {
+            "path": "AGENTS.md",
+            "reason": "Instructions at user level are ~/.codex/AGENTS.md, which the global scope already owns. A second copy under the convention root would be a second statement of one fact, and nothing documents Codex reading it there.",
+            "source": "https://learn.chatgpt.com/docs/build-skills"
+          }
+        ]
+      }
+    ]
   },
   "software_artifacts": {
     "command": "codex",
