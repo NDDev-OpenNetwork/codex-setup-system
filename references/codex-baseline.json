@@ -15,14 +15,6 @@
     "official_standalone_installer": "https://github.com/openai/codex/releases/download/rust-v0.147.0/install.sh",
     "official_permissions_documentation": "https://learn.chatgpt.com/docs/permissions"
   },
-  "permission_profiles": {
-    "configuration_key": "default_permissions",
-    "custom_profiles_surface": "[permissions.<name>]",
-    "custom_profiles_used": false,
-    "managed_enforcement": false,
-    "minimum_codex_version_ref": "build/version.json:codex_permission_profiles_since",
-    "status": "beta"
-  },
   "software_install": {
     "desktop_configuration_binding": "not-guaranteed-by-codex-app",
     "desktop_delegate": "codex app",
@@ -34,7 +26,7 @@
     "standalone_layout": "packages/standalone"
   },
   "verified_version_ref": "build/version.json:codex_cli_tested",
-  "verified_at": "2026-08-27T23:44:19+00:00",
+  "verified_at": "2026-08-28T03:43:27+00:00",
   "native_surfaces": {
     "verified_at": "2026-08-27",
     "config_home": "~/.codex",
@@ -138,6 +130,15 @@
       }
     ]
   },
+  "product_permission_profiles": {
+    "configuration_key": "default_permissions",
+    "custom_profiles_surface": "[permissions.<name>]",
+    "custom_profiles_used": false,
+    "managed_enforcement": false,
+    "minimum_codex_version_ref": "build/version.json:codex_permission_profiles_since",
+    "status": "beta",
+    "note": "This names what the Codex product does about permissions -- a beta feature of the product, read from its own documentation. It is NOT this provider's protocol field of the same name, which is permission_profiles in provider-info and is [\"default\"] on every one of the seven. The two share a word and name different axes. Renamed rather than annotated in place, for the reason docs/CONSUMER-GAPS.md records the last time this estate met the pattern: the shared name is the trap, and no amount of documentation survives the next reader."
+  },
   "software_artifacts": {
     "command": "codex",
     "shape": "gzip-tar",
@@ -180,7 +181,7 @@
       }
     },
     "version": "0.150.1",
-    "verified_at": "2026-08-27T23:44:19+00:00"
+    "verified_at": "2026-08-28T03:43:27+00:00"
   },
   "setup_catalogue_digest": "sha256:322930d7890d8baf9bb6f869dfdabb93e76b4ac7ab89af8d0aaa8b2dfafa3556"
 }
