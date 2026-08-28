@@ -109,6 +109,11 @@
         "path": ".codex-setup-system",
         "reason": "This provider's own control directory: the target lock, the backup slots and their payloads. Kept out of the declaration for the same reason as the state file, and recorded here because the declined list is where a reader looks before opening a file to find out what it is.",
         "source": "this provider's own contract; no vendor page is involved"
+      },
+      {
+        "path": "managed-config",
+        "reason": "Not a path in the target, and named without an extension for that reason: this product's managed policy lives at a **system** path, and every recorded path here is relative to the target. Three literals in the pinned 0.149.1 binary:\n\n  * `/etc/codex/managed_config.toml` — the administrator's policy\n  * `/etc/codex/requirements.toml` — the clamp above it\n  * `/etc/codex/config.toml` — a system-wide layer below both\n\nThe same build carries `legacy_managed_config_file`, `legacy_managed_config_mdm` and `allow_managed_hooks_only`, so the policy also arrives by MDM and can restrict which hooks may run at all. No macOS or Windows equivalent appears as a literal in this build, and none is claimed here: absence of a literal is not absence of a path, and the honest record is what was measured.\n\n**It bears on the `full-auto` posture**, exactly as the same surface does on the two harnesses that already record one. That setup writes a permissive approval policy and sandbox mode into the owned `config.toml`; under a managed policy those keys are correct, at a correct path, in a file the product reads — and a higher layer overrides them. Install, verify and restore all succeed and nothing about what the product permits has changed.\n\nRecorded and never touched. It needs root to write, it is outside the configuration home this provider is given, and owning an organisation's policy is the defect this estate has already shipped once: on the harness next door, owning a signed policy deleted it and kept its signatures, which is the one state that product's own gate refuses.",
+        "source": "measured in the pinned 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference"
       }
     ],
     "config_home_env": "CODEX_HOME",
@@ -203,5 +208,5 @@
     "version": "0.150.1",
     "verified_at": "2026-08-28T04:41:39+00:00"
   },
-  "setup_catalogue_digest": "sha256:cf83f318f283649b6a546a9774a24048d4e5a057e7bfb2132013db8caa2286c6"
+  "setup_catalogue_digest": "sha256:f7128068e99f1a44704789fe195c40e3f704865cd43e36cf2d42fa2e2c5e44b6"
 }

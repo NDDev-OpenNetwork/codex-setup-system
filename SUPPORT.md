@@ -186,6 +186,18 @@ other file beside a target.
 
 **`.codex-setup-system`** -- This provider's own control directory: the target lock, the backup slots and their payloads. Kept out of the declaration for the same reason as the state file, and recorded here because the declined list is where a reader looks before opening a file to find out what it is. ([source](this provider's own contract; no vendor page is involved))
 
+**`managed-config`** -- Not a path in the target, and named without an extension for that reason: this product's managed policy lives at a **system** path, and every recorded path here is relative to the target. Three literals in the pinned 0.149.1 binary:
+
+  * `/etc/codex/managed_config.toml` — the administrator's policy
+  * `/etc/codex/requirements.toml` — the clamp above it
+  * `/etc/codex/config.toml` — a system-wide layer below both
+
+The same build carries `legacy_managed_config_file`, `legacy_managed_config_mdm` and `allow_managed_hooks_only`, so the policy also arrives by MDM and can restrict which hooks may run at all. No macOS or Windows equivalent appears as a literal in this build, and none is claimed here: absence of a literal is not absence of a path, and the honest record is what was measured.
+
+**It bears on the `full-auto` posture**, exactly as the same surface does on the two harnesses that already record one. That setup writes a permissive approval policy and sandbox mode into the owned `config.toml`; under a managed policy those keys are correct, at a correct path, in a file the product reads — and a higher layer overrides them. Install, verify and restore all succeed and nothing about what the product permits has changed.
+
+Recorded and never touched. It needs root to write, it is outside the configuration home this provider is given, and owning an organisation's policy is the defect this estate has already shipped once: on the harness next door, owning a signed policy deleted it and kept its signatures, which is the one state that product's own gate refuses. ([source](measured in the pinned 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference))
+
 ## Response
 
 One maintainer. Defects are triaged as time allows; security reports are
