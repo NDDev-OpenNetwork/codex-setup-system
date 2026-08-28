@@ -71,7 +71,42 @@ pub const CODEX: Harness = Harness {
         ComponentKind::Setting,
         ComponentKind::Hook,
         ComponentKind::Command,
-        ComponentKind::Agent,
+        // `ComponentKind::Agent` was here until 2026-08-28. Withdrawn because
+        // **a role is two files and a component of one kind is one thing in
+        // one namespace**, so there is no honest way to state this route at
+        // all. That reason survives a change of behaviour: if this product
+        // added a directory scan tomorrow, the kind would still be a stanza
+        // plus the layer it points at.
+        //
+        // The measurement below came first and is the weaker half, which is
+        // worth saying because it read as the stronger one while it was the
+        // only one written down.
+        //
+        // Measured by running the product against a temporary `CODEX_HOME`,
+        // not read off a page. A role is declared in `config.toml` and points
+        // at its own file:
+        //
+        //     [agents.<name>]
+        //     description = "..."
+        //     config_file = "agents/<name>.toml"
+        //
+        // The mechanism is live and says so when the pointer is wrong --
+        // *"Ignoring malformed agent role definition:
+        // agents.broken-role.config_file must point to an existing file at
+        // .../agents/missing.toml"*. In the same run, an `agents/<name>.md`
+        // sitting beside it was loaded by nothing and complained about by
+        // nothing. The vendor's own configuration reference documents
+        // `agents.<name>.description` and `agents.<name>.config_file` and
+        // documents no directory scan.
+        //
+        // So the route needs two files written together, and a component of
+        // one kind is one thing installed in one namespace: there is no way to
+        // express "and also add a stanza to the settings file" in the kind
+        // model. `agents/` stays owned -- a backup captures it and a restore
+        // returns it -- and routes no kind, like `workflows` on the harness
+        // next door. This setup's own builder role is written as the pair,
+        // which is a setup writing two files it owns, not a component being
+        // routed.
     ],
     projection_kinds: &[
         ProjectionKind::NativeFiles,

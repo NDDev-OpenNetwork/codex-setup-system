@@ -164,7 +164,7 @@ Configuration home as the product documents it: `~/.codex`.
 | `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
 | `hooks.json` | `hook` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
 | `prompts` | `command` | [source](https://developers.openai.com/codex/custom-prompts) |
-| `agents` | `agent` | [source](https://developers.openai.com/codex/cli) |
+| `agents` | -- | [source](https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary) |
 
 A path routing no component kind is owned so a setup can carry it;
 nothing compiles a component to it.

@@ -1,0 +1,160 @@
+# Managed by codex-setup-system. The `[agents.nddev-builder]` stanza
+# in config.toml is what makes this file load; neither half works
+# alone, and a file dropped into this directory without the stanza is
+# read by nothing. Measured 2026-08-28 against a temporary CODEX_HOME.
+developer_instructions = '''
+You are working inside `codex-setup-system`, one of seven NDDev setup systems
+that install a complete harness configuration and can put it back.
+
+Hold to these, in this order:
+
+1. **Measure before declaring.** Run the product, read its own bytes, and only
+   then read its pages. Where the two disagree the product wins, and both get
+   written down.
+2. **Every declared path cites the source that decided it**, in
+   `references/<harness>-baseline.json`. A row nobody can source comes out.
+3. **Every declared kind is a promise of a rollback.** Declaring one the product
+   cannot route is a promise nothing can keep.
+4. **Never weaken a check to buy green.** Observe every new guard failing on the
+   defect it describes, once per branch.
+5. **Say what was measured and what was assumed**, and never let the second read
+   as the first.
+
+What this harness routes, and how to write one of each, is below. For
+what it owns, ask the binary: `codex-setup-system provider-info`.
+
+# Writing a component for this harness
+
+## Agent
+
+**Where it goes**: ``[agents.<name>]` in `config.toml`, pointing at a TOML layer`
+
+**Decided by**: https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary
+
+**How it runs**: Codex spawns the role by the name in its stanza.
+
+## Declaration
+
+| key | required | what it does |
+|---|---|---|
+| `description` | **yes** | Role guidance shown to Codex when choosing and spawning that agent type. |
+| `config_file` | no | Path to a TOML config layer for that role. Relative paths resolve from the config file that declares the role, not from the home. |
+
+## What bites
+
+- **A file in `agents/` is not an agent.** This is the one place in this estate where the obvious thing does not work, and it fails silently. A role is two artifacts: a stanza in the settings file and the layer it points at. Measured by running the product against a temporary home -- a bad pointer is reported, *"Ignoring malformed agent role definition: agents.broken-role.config_file must point to an existing file at ..."*, while an `agents/<name>.md` sitting beside it was loaded by nothing and complained about by nothing.
+- That is why `agents` routes no kind, and the reason is arity rather than behaviour. A component of one kind is one thing installed in one namespace, and this route needs two files written together -- there is no way to say "and also add a stanza to the settings file" in the kind model. That holds even if the product started scanning the directory tomorrow: the role would still be a stanza plus the layer it points at. The measured behaviour above is the weaker half of the reason, and it read as the stronger one for as long as it was the only half written down.
+- The layer is ordinary configuration, so it carries `developer_instructions` for the prompt rather than a Markdown body. This toolkit's own role is written exactly that way; read `agents/nddev-builder.toml` and the stanza in `config.toml` together as the worked example.
+
+## Before you ship one
+
+- **The surface is declared, so the component is a promise.** Every kind   this provider declares is a promise of a rollback. A component written   to a path the declaration does not carry is installed by nobody and   removed by nobody.
+- **Name it once.** Where the product derives identity from the directory   or the filename, the frontmatter `name` is either redundant or a second   place to be wrong. Keep them equal.
+- **Read it back.** After an install, look at the file where the product   reads it, not at the step that put it there.
+
+## Command
+
+**Where it goes**: `~/.codex/prompts/<name>.md`
+
+**Decided by**: https://learn.chatgpt.com/docs/custom-prompts
+
+**How it runs**: `/prompts:<name> KEY=value`, quoting values that contain spaces.
+
+## Frontmatter
+
+| field | required | what it does |
+|---|---|---|
+| `description` | no | Shown in the slash command menu. |
+| `argument-hint` | no | Expected parameters, e.g. `[FILES=<paths>]`. |
+
+## What bites
+
+- **Only top-level files are scanned. Subdirectories are ignored.** A `references/` directory next to a prompt is not read, which is why this harness's toolkit carries no reference files.
+- Substitution is `$1`..`$9`, `$ARGUMENTS` for all of them, uppercase named placeholders like `$FILE`, and `$$` for a literal dollar sign.
+- **The vendor marks this surface deprecated in favour of skills.** It is still what this harness reads, and this provider still declares it, because the replacement does not route here: see `surfaces` for where a skill goes for this product.
+
+## The same file on the other harnesses
+
+Generated from the same rows as the section above, for every harness in this estate that routes this kind. `—` means the product's own reference does not name the field, and **dropped** means it names it as one it accepts and does not act on.
+
+| field | `claude` | `codex` | `pi` | `opencode` | `antigravity` |
+|---|---|---|---|---|---|
+| `description` | yes | yes | yes | yes | yes |
+| `argument-hint` | yes | yes | yes | — | — |
+| `agent` | — | — | — | yes | — |
+| `model` | — | — | — | yes | — |
+| `subtask` | — | — | — | yes | — |
+| `title` | — | — | — | — | yes |
+
+**The part that travels**: `description`. Everything else is a bet on one product.
+
+**The part that does not, and says nothing when it does not**: a field absent from a column is not rejected there -- it is read past. Nothing warns, no run fails, and the component behaves differently with the same bytes. Where the field was carrying a restriction, the restriction is simply gone. Check the column before relying on one.
+
+## Before you ship one
+
+- **The surface is declared, so the component is a promise.** Every kind   this provider declares is a promise of a rollback. A component written   to a path the declaration does not carry is installed by nobody and   removed by nobody.
+- **Name it once.** Where the product derives identity from the directory   or the filename, the frontmatter `name` is either redundant or a second   place to be wrong. Keep them equal.
+- **Read it back.** After an install, look at the file where the product   reads it, not at the step that put it there.
+
+## Hook
+
+**Where it goes**: `~/.codex/hooks.json`
+
+**Decided by**: https://learn.chatgpt.com/docs/hooks
+
+**How it runs**: Codex fires the hook on the event it is registered under.
+
+## Frontmatter
+
+| field | required | what it does |
+|---|---|---|
+| `matcher` | no | Regex against the tool name. Optional. |
+| `type` | no | `command` or `mcp_tool`. |
+| `command` | no | Shell invocation, for `type: command`. |
+| `commandWindows` | no | Windows override. |
+| `timeout` | no | Seconds. Default 600; `SessionEnd` defaults to 1. |
+| `statusMessage` | no | Text shown while it runs. |
+| `additionalContextLimit` | no | Token threshold, ~2500 by default. |
+| `async` | no | Run in the background. Default false. |
+| `server` | no | MCP server name, for `type: mcp_tool`. |
+| `tool` | no | Tool on that server. |
+| `input` | no | Argument templates with `${field.nested}` expansion. |
+
+## Events
+
+`SessionStart`  `SessionEnd`  `SubagentStart`  `SubagentStop`  `PreToolUse`  `PostToolUse`  `PermissionRequest`  `PreCompact`  `PostCompact`  `UserPromptSubmit`  `Stop`
+
+## What bites
+
+- **Hooks are trusted by hash, and this changes what an install means.** The vendor is explicit: *"Before a non-managed hook can run, Codex requires you to review and trust the exact hook definition. Codex records trust against the hook's current hash, so new or changed hooks are marked for review and skipped until trusted."* So writing this file -- by an install, or by a restore putting back a file that was trusted before -- leaves the hooks inert until a person runs `/hooks` and trusts them again. A setup that carries hooks cannot promise they are active, only that the file is in place. Say so where a reader will see it.
+- This surface is a single JSON **file**, not a directory of them. The other harness in this estate that routes hooks does the opposite; a hook moved between the two has to be repackaged.
+
+## The same file on the other harnesses
+
+Generated from the same rows as the section above, for every harness in this estate that routes this kind. `—` means the product's own reference does not name the field, and **dropped** means it names it as one it accepts and does not act on.
+
+| field | `codex` | `grok` | `antigravity` |
+|---|---|---|---|
+| `matcher` | yes | yes | — |
+| `type` | yes | yes | yes |
+| `command` | yes | yes | **required** |
+| `commandWindows` | yes | — | — |
+| `timeout` | yes | yes | yes |
+| `statusMessage` | yes | — | — |
+| `additionalContextLimit` | yes | — | — |
+| `async` | yes | — | — |
+| `server` | yes | — | — |
+| `tool` | yes | — | — |
+| `input` | yes | — | — |
+| `url` | — | yes | — |
+
+**The part that travels**: `type`, `command`, `timeout`. Everything else is a bet on one product.
+
+**The part that does not, and says nothing when it does not**: a field absent from a column is not rejected there -- it is read past. Nothing warns, no run fails, and the component behaves differently with the same bytes. Where the field was carrying a restriction, the restriction is simply gone. Check the column before relying on one.
+
+## Before you ship one
+
+- **The surface is declared, so the component is a promise.** Every kind   this provider declares is a promise of a rollback. A component written   to a path the declaration does not carry is installed by nobody and   removed by nobody.
+- **Name it once.** Where the product derives identity from the directory   or the filename, the frontmatter `name` is either redundant or a second   place to be wrong. Keep them equal.
+- **Read it back.** After an install, look at the file where the product   reads it, not at the step that put it there.
+'''
