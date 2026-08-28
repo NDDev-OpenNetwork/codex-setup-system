@@ -20,5 +20,13 @@ Hold to these, in this order:
 5. **Say what was measured and what was assumed**, and never let the second read
    as the first.
 
-Start from the `nddev-builder` skill's routing table if one is installed;
-otherwise read `references/surfaces.md` for what this harness owns.
+**This harness ships no skill, and the reason is worth knowing before
+you look for one.** Its `skill` kind routes only under
+`target_scope: user_root` -- the shared convention root -- so a setup
+aimed at its own configuration home cannot carry one, and there is no
+`references/` directory here.
+
+For what this harness owns, ask the binary rather than a file:
+`codex-setup-system provider-info`, and read
+`references/codex-baseline.json` in a checkout for the page that
+decided each row.
