@@ -67,12 +67,11 @@
       },
       {
         "path": "agents",
-        "kinds": [
-          "agent"
-        ],
+        "kinds": [],
         "shape": "directory",
-        "source": "https://developers.openai.com/codex/cli",
-        "note": "Custom agents, as TOML files. The vendor documents the fields -- `name`, `description`, `model`, `model_reasoning_effort`, `developer_instructions` -- and the path literal `.codex/agents` is in the pinned 0.150.1 binary. Declared 2026-08-28, having been neither owned nor recorded: the product supported a global agent directory and no consumer could route an `agent` component here.\n\n**TOML, where claude, opencode and pi take Markdown for the same kind.** The kind names what a component *is*, not what it is written in, and this provider writes a bundle's bytes verbatim -- so the format is the compiler's problem and not this declaration's. Worth knowing before anything treats `agent` as uniform across the seven."
+        "source": "https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary",
+        "note": "$CODEX_HOME/agents/ -- owned so a backup captures it and a restore returns it, and routing no kind. It carried `agent` until 2026-08-28. The reason it routes nothing is arity, not behaviour: a role is a config.toml stanza ([agents.<name>] with `description` and `config_file`) plus the TOML layer that stanza points at, and a component of one kind is one thing installed in one namespace -- so the route cannot be stated even if the product's behaviour changed. Measured behaviour, which is the weaker half of the reason: running the product against a temporary CODEX_HOME, a bad pointer is reported (\"Ignoring malformed agent role definition: agents.broken-role.config_file must point to an existing file at .../agents/missing.toml\") while an agents/<name>.md beside it was loaded by nothing and complained about by nothing.",
+        "reached_by": "config.toml"
       }
     ],
     "declined": [
@@ -199,5 +198,5 @@
     "version": "0.150.1",
     "verified_at": "2026-08-28T04:41:39+00:00"
   },
-  "setup_catalogue_digest": "sha256:c5e387cd953c77f11098f17be68b52dbcf54839061b3ddb4893315d19026fee8"
+  "setup_catalogue_digest": "sha256:cf83f318f283649b6a546a9774a24048d4e5a057e7bfb2132013db8caa2286c6"
 }
