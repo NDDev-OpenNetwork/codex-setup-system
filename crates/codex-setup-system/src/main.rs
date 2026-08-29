@@ -121,8 +121,7 @@ pub const CODEX: Harness = Harness {
     // product. `learn.chatgpt.com/docs/build-skills` names `$HOME/.agents/skills`
     // as the user-level skills directory -- a *sibling* of `~/.codex`, not a
     // child, so nothing declared against this provider's own target can reach
-    // it. That is what `user_root` exists for, and this is the only scope in
-    // the seven that uses it.
+    // it. That is what `user_root` exists for.
     //
     // **Owning a shared root, weighed rather than assumed.** `.agents` is named
     // for being shared, and an owned namespace is removed whole: a `remove`
@@ -161,16 +160,26 @@ pub const CODEX: Harness = Harness {
     // project-scoped one, so the variable name alone would have misread it; the
     // line that matters is 2017.)
     //
-    // **What does not change: this declaration stands.** It is measured, it is
-    // Codex's own documented root, and nothing routes to `user_root` yet.
+    // **Both sentences that used to close this block have since expired**, and
+    // they are kept here as the shape rather than deleted, because a reason
+    // nobody re-reads is how a correct record goes quietly wrong.
     //
-    // **What is now open: who owns a root two products read.** Pi is
-    // deliberately *not* given the same scoped profile, recorded in
-    // `pi-baseline.json` under `$HOME/.agents/skills`. Two providers declaring
-    // one path are not two owners -- a namespace is removed whole, so either
-    // one's `remove` under this scope takes the other's skills. Recoverable, and
-    // still a question a shared root deserves one answer to. Raised with the
-    // consumer, whose scope this is.
+    // It said *nothing routes to `user_root` yet*. The consumer routes this
+    // provider's `skill` there today: `composition.py`,
+    // `Rule("skill", "skills", "directory", "codex", target_scope="user_root")`.
+    //
+    // It said the other four were *deliberately not given the same scoped
+    // profile*, because *a namespace is removed whole, so either one's `remove`
+    // under this scope takes the other's skills*. True when written, and false
+    // from the day `written_paths` shipped: under a scope every verb acts on
+    // the files this provider recorded writing, so grok, opencode, pi and
+    // cursor declare the same profile now and coexist under one `~/.agents`,
+    // each with its own state file. Verified with the shipped binaries.
+    //
+    // What has not changed is the declaration itself, and the reason to read
+    // this block is the method rather than its conclusions: the root was
+    // weighed against every other product before it was owned, and the answer
+    // moved twice while the measurement stayed right.
     scoped_projections: &[Scoped {
         target_scope: TargetScope::UserRoot,
         // Distinct from the global identity, because the digest binds a
