@@ -67,7 +67,7 @@
           "command"
         ],
         "shape": "directory",
-        "source": "https://developers.openai.com/codex/custom-prompts",
+        "source": "https://learn.chatgpt.com/docs/custom-prompts",
         "evidence": "page",
         "note": "$CODEX_HOME/prompts/*.md, each file a slash command\n\n**Searched in the product's own pinned bytes on 2026-08-29 and not found, which argues nothing either way.** Fixed-string, anchored to this product's configuration home -- the bare leaf name is in every one of these binaries and proves nothing, so only the anchored form counts. An invented path was searched in the same run and was also absent, so the search discriminates.\n\nThis row stays `page` because **a path built by joining a directory to a name at runtime never appears as a literal**, and that is the shape of every remaining one. Moving it off `page` needs the product run against a target and asked what it resolved, not a deeper grep."
       },
@@ -95,7 +95,7 @@
       {
         "path": "plugins",
         "reason": "Codex plugins are drawn from a hosted directory shared with ChatGPT, not from a folder under the Codex home.",
-        "source": "https://developers.openai.com/codex/cli"
+        "source": "https://learn.chatgpt.com/docs/codex/cli"
       },
       {
         "path": "AGENTS.override.md",
