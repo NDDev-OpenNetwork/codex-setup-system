@@ -110,8 +110,24 @@ pub const CODEX: Harness = Harness {
     ],
     projection_kinds: &[
         ProjectionKind::NativeFiles,
-        ProjectionKind::Marketplace,
-        ProjectionKind::Plugin,
+        // `Marketplace` and `Plugin` were both declared here and neither could
+        // land. This harness's plugins are drawn from a hosted directory shared
+        // with ChatGPT, and `plugins/cache` is what an install copies into --
+        // product state, not a surface a provider writes.
+        //
+        // A personal marketplace surface does exist, and finding it is why this
+        // took two passes: the pinned binary says *"`~/.agents/plugins/
+        // marketplace.json` is discovered implicitly"*, with no `marketplace
+        // add` step. But it sits in `~/.agents` -- the `user_root` scope, whose
+        // namespaces here are `["skills"]` alone -- so the declaration was on
+        // the *global* profile, where nothing can hold one. **A declaration is
+        // per profile, so backing it is per profile.**
+        //
+        // Owning that file is a decision rather than a narrowing and is left
+        // for one: `~/.agents` is read by several products, and a marketplace
+        // there is a *source* every one of them would resolve plugins from, so
+        // who else reads it is a question about behaviour rather than routing.
+        // The `user_root` skill question has the same shape.
     ],
     // One scope. Codex's project surfaces live under `.codex/` in a workspace, which is a
     // different root rather than a second scope of this target.
