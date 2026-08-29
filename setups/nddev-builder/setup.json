@@ -3,8 +3,8 @@
   "id": "nddev-builder",
   "description": "A working floor plus the NDDev builder toolkit: what this harness owns, the lifecycle it performs, and the gate a change must pass.",
   "sources": [
-    "https://developers.openai.com/codex/custom-prompts",
     "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
-    "https://learn.chatgpt.com/docs/config-file/config-reference"
+    "https://learn.chatgpt.com/docs/config-file/config-reference",
+    "https://learn.chatgpt.com/docs/custom-prompts"
   ]
 }

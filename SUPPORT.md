@@ -169,7 +169,7 @@ Configuration home as the product documents it: `~/.codex`.
 | `AGENTS.md` | `instruction` | [source](https://learn.chatgpt.com/docs/agent-configuration/agents-md) |
 | `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference; anchored literal measured in the pinned artifact by scripts/evidence.py) |
 | `hooks.json` | `hook` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
-| `prompts` | `command` | [source](https://developers.openai.com/codex/custom-prompts) |
+| `prompts` | `command` | [source](https://learn.chatgpt.com/docs/custom-prompts) |
 | `agents` | -- | [source](https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary) |
 
 A path routing no component kind is owned so a setup can carry it;
@@ -200,7 +200,7 @@ other file beside a target.
 
 **`.agents/skills`** -- The user-scope skills directory is $HOME/.agents/skills -- a sibling of ~/.codex, not a child of it. Declared relative to this provider's target it resolves to ~/.codex/.agents/skills, which Codex never reads. Same shape as the pi managed_paths defect. ([source](https://learn.chatgpt.com/docs/build-skills))
 
-**`plugins`** -- Codex plugins are drawn from a hosted directory shared with ChatGPT, not from a folder under the Codex home. ([source](https://developers.openai.com/codex/cli))
+**`plugins`** -- Codex plugins are drawn from a hosted directory shared with ChatGPT, not from a folder under the Codex home. ([source](https://learn.chatgpt.com/docs/codex/cli))
 
 **`AGENTS.override.md`** -- Codex reads this **before** AGENTS.md at global scope and takes only the first non-empty file at that level, so a home holding a non-empty one ignores the instruction file this provider installs. An empty override does not silence the floor -- Codex skips empty files -- which is worth knowing before concluding that a present override is the reason instructions are not applying. Deliberately not owned: an override exists so a person can escape a managed floor, and a provider that owned it could remove the escape with `remove`. ([source](https://learn.chatgpt.com/docs/agent-configuration/agents-md))
 
