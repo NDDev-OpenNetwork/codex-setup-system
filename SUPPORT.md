@@ -220,6 +220,10 @@ The same build carries `legacy_managed_config_file`, `legacy_managed_config_mdm`
 
 Recorded and never touched. It needs root to write, it is outside the configuration home this provider is given, and owning an organisation's policy is the defect this estate has already shipped once: on the harness next door, owning a signed policy deleted it and kept its signatures, which is the one state that product's own gate refuses. ([source](measured in the pinned 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference))
 
+**`mcp.json`** -- Codex keeps MCP servers under `[mcp_servers.<name>]` in `config.toml`, which this provider owns and writes and restores whole -- so MCP is already covered by the `setting` kind. **A key inside a file is not a projection surface**: declaring `mcp` here would promise to install, observe and roll back a fragment of a document, which nothing in this program does.
+
+There is no `mcp.json` under this home. The pinned 0.150.1 binary carries the literal twenty-two times and every one is about a *plugin's* servers -- `selected_executor_plugin_mcp.mcp.json` beside `.codex-plugin/plugin.json`, `.claude-plugin/plugin.json` and `.cursor-plugin/plugin.json`. Recorded because the string is there and a reader who greps for it will find it. ([source](measured from the pinned artifact, digest verified before reading (codex 0.150.1); https://learn.chatgpt.com/docs/config-file/config-reference))
+
 ## Response
 
 One maintainer. Defects are triaged as time allows; security reports are
