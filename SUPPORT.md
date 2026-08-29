@@ -161,7 +161,7 @@ Configuration home as the product documents it: `~/.codex`.
 | Path | Component kinds routed here | Decided by |
 | --- | --- | --- |
 | `AGENTS.md` | `instruction` | [source](https://learn.chatgpt.com/docs/agent-configuration/agents-md) |
-| `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
+| `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference; anchored literal measured in the pinned artifact by scripts/evidence.py) |
 | `hooks.json` | `hook` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
 | `prompts` | `command` | [source](https://developers.openai.com/codex/custom-prompts) |
 | `agents` | -- | [source](https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary) |
