@@ -75,14 +75,20 @@ Two versions, two different answers, both measured:
 | --- | --- |
 | `ai-stp-cli` 0.0.3 | five pass; Codex and Antigravity report `conforms=false`, detail *fields differ from the closed v3 schema* |
 | `ai-stp-cli` 0.0.7 | six pass 23 of 23; Codex reports `conforms=false`, detail *a scoped projection profile names an unknown target scope* |
+| `ai-stp-cli` 0.0.8 | **all seven pass**, 27 to 29 cases each |
 
-The remaining one is not a defect in this build. `0.0.7` carries the field but
-its scope enum is `["project"]` alone, while the provider kit this program
-vendors and verifies byte-for-byte -- kit `0.2.4`,
-`provider-info.schema.json` -- gives `["project", "user_root"]`. The kit is the
-artifact a provider is told to build against, so a build that declares
-`user_root` is right by the document it was handed and wrong by the checker
-shipped beside it. Raised with the consumer, who owns both.
+The middle row was never a defect in this build, and the third row is how that
+was settled: **it closed with no change on this side.** `0.0.7` carried the
+field but its scope enum was `["project"]` alone, while the provider kit this
+program vendors and verifies byte-for-byte gave `["project", "user_root"]`. The
+kit is the artifact a provider is told to build against, so a build declaring
+`user_root` was right by the document it was handed and wrong by the checker
+shipped beside it. `0.0.8` shipped the enum, and a declaration that had been
+correct for a month started being read as correct.
+
+**Withdrawing a correct declaration to make a lagging instrument print green is
+never the answer here.** The three rows above are the argument for that, and
+they are also the argument for the rule this section exists for.
 
 Which is the general rule this section exists for: **check the version of the
 checker before suspecting this build**, and prefer the newest, because an older
@@ -168,6 +174,22 @@ Configuration home as the product documents it: `~/.codex`.
 
 A path routing no component kind is owned so a setup can carry it;
 nothing compiles a component to it.
+
+### A second target: `target_scope: user_root`
+
+Rooted at `~/.agents`, which is not the configuration home
+above. A consumer reaches it by naming the scope on the request, and
+every path below is relative to that root.
+
+| Path | Component kinds routed here | Decided by |
+| --- | --- | --- |
+| `skills` | `skill` | [source](https://learn.chatgpt.com/docs/build-skills, and measured by running the pinned 0.150.1 product against a temporary HOME, 2026-08-29) |
+
+This root is read by several products at once, so under this scope
+`remove`, the backup and a restore act on the files this program
+recorded writing rather than on the directory whole. A neighbour's
+files are never captured into a backup slot here, and never reverted
+by a restore.
 
 ### Considered and not owned
 
