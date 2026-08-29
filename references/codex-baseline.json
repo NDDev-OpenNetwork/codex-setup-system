@@ -21,12 +21,12 @@
     "desktop_documented_product": "ChatGPT",
     "desktop_pinned_cli_packaging": "Codex.app/Codex.dmg",
     "installer_asset": "install.sh",
-    "installer_release": "rust-v0.150.1",
-    "installed_version": "0.150.1",
+    "installer_release": "rust-v0.151.0",
+    "installed_version": "0.151.0",
     "standalone_layout": "packages/standalone"
   },
   "verified_version_ref": "build/version.json:codex_cli_tested",
-  "verified_at": "2026-08-29T08:23:50+00:00",
+  "verified_at": "2026-08-29T10:52:43+00:00",
   "native_surfaces": {
     "verified_at": "2026-08-27",
     "config_home": "~/.codex",
@@ -177,6 +177,55 @@
     "shape": "gzip-tar",
     "platforms": {
       "linux/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-linux-arm64.tgz",
+        "bytes": 127075581,
+        "sha256": "sha256:c9f0a6415f58ddef8908d36c38881d273bac417d57b5c7768dd9fbfeb92b6a2d",
+        "member": "package/vendor/aarch64-unknown-linux-musl/bin/codex"
+      },
+      "linux/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-linux-x64.tgz",
+        "bytes": 134633472,
+        "sha256": "sha256:b3bcf2c11693d7c8155de637dd6562ba19d916ba13471a7c8737de55e5328fc6",
+        "member": "package/vendor/x86_64-unknown-linux-musl/bin/codex"
+      },
+      "macos/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-darwin-arm64.tgz",
+        "bytes": 120938684,
+        "sha256": "sha256:93659b8bd69c4ecd28ae08e2960c668f64d4760480bebe98841904d447026740",
+        "member": "package/vendor/aarch64-apple-darwin/bin/codex"
+      },
+      "macos/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-darwin-x64.tgz",
+        "bytes": 129250415,
+        "sha256": "sha256:7c06be9f6cec30b65d56cf97072958f4899335f27eb1bed21d6ba79f5a637c84",
+        "member": "package/vendor/x86_64-apple-darwin/bin/codex"
+      },
+      "windows/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-win32-arm64.tgz",
+        "bytes": 138074686,
+        "sha256": "sha256:6a0f35087c7125092354795488d48fc37e134eea87dac697f44d04eb8dd77c4d",
+        "member": "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe"
+      },
+      "windows/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.151.0-win32-x64.tgz",
+        "bytes": 147584554,
+        "sha256": "sha256:9044e64402bf6a92774fe35a8cb86010d254c0d3390d5a7ee9047024588d7355",
+        "member": "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe"
+      }
+    },
+    "version": "0.151.0",
+    "verified_at": "2026-08-29T10:52:43+00:00"
+  },
+  "setup_catalogue_digest": "sha256:42d1a3b2f3e550f5285155ab0f019df561c67d001259ff0f541cc5a5ff37fce4",
+  "second_pin_absent": {
+    "measured_at": "2026-08-29",
+    "note": "`software_update` and `rollback` cross two real releases, and this build pins one. The second slot fills by **rotation** rather than by choice: a vendor bump assigns `previous = current` and then sets `current`, so exactly one value moves per bump and the pair is always two consecutive real releases. `scripts/evidence.py::cross_two_releases` skips this harness and prints the reason, which is an absence of a second release rather than a failure.\n\nRecorded because a reader of this file otherwise cannot tell a gap from a fact. Four of the seven carry a second pin; these are the three that do not, and each for a different reason.\n\n**Fills on the next bump, and this vendor bumps often** -- `0.149.0`, `0.149.1`, `0.150.0`, `0.150.1` in the recent line. Seeding it by hand was tried on 2026-08-29 and abandoned on a measurement: the platform packages are **npm aliases** (`\"@openai/codex-linux-x64\": \"npm:@openai/codex@<version>-linux-x64\"`), so a prior release's artifact URL cannot be built from the package name -- asking the registry for the aliased name answers 404, which is exactly what the refresher's own comment says and exactly what happened. The authority is the wrapper's `optionalDependencies` at that version, which is what rotation reads anyway."
+  },
+  "previous_software_artifacts": {
+    "command": "codex",
+    "shape": "gzip-tar",
+    "platforms": {
+      "linux/arm64": {
         "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.150.1-linux-arm64.tgz",
         "bytes": 121672045,
         "sha256": "sha256:a05677acf4c0dd6dbed01ffeaa82dca6337f06856e843787b74ce7bf62019fb4",
@@ -215,10 +264,5 @@
     },
     "version": "0.150.1",
     "verified_at": "2026-08-29T08:23:50+00:00"
-  },
-  "setup_catalogue_digest": "sha256:42d1a3b2f3e550f5285155ab0f019df561c67d001259ff0f541cc5a5ff37fce4",
-  "second_pin_absent": {
-    "measured_at": "2026-08-29",
-    "note": "`software_update` and `rollback` cross two real releases, and this build pins one. The second slot fills by **rotation** rather than by choice: a vendor bump assigns `previous = current` and then sets `current`, so exactly one value moves per bump and the pair is always two consecutive real releases. `scripts/evidence.py::cross_two_releases` skips this harness and prints the reason, which is an absence of a second release rather than a failure.\n\nRecorded because a reader of this file otherwise cannot tell a gap from a fact. Four of the seven carry a second pin; these are the three that do not, and each for a different reason.\n\n**Fills on the next bump, and this vendor bumps often** -- `0.149.0`, `0.149.1`, `0.150.0`, `0.150.1` in the recent line. Seeding it by hand was tried on 2026-08-29 and abandoned on a measurement: the platform packages are **npm aliases** (`\"@openai/codex-linux-x64\": \"npm:@openai/codex@<version>-linux-x64\"`), so a prior release's artifact URL cannot be built from the package name -- asking the registry for the aliased name answers 404, which is exactly what the refresher's own comment says and exactly what happened. The authority is the wrapper's `optionalDependencies` at that version, which is what rotation reads anyway."
   }
 }
