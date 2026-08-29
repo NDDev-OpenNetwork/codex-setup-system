@@ -161,7 +161,8 @@
       "accepts_comments": true,
       "note": "TOML, so `#` comments are part of the grammar. No JSON schema is possible for it and none is expected; the setups are checked by parsing instead.",
       "measured_at": "2026-08-28"
-    }
+    },
+    "projection_basis": {}
   },
   "product_permission_profiles": {
     "configuration_key": "default_permissions",
