@@ -34,7 +34,33 @@ pub const CODEX: Harness = Harness {
     control_directory: ".codex-setup-system",
     state_file: "NDDEV-CODEX-PROVIDER.json",
     predecessor_state_file: "NDDEV-CODEX-SETUP.json",
-    profile_id: "codex/native-and-plugins/1",
+    // Renamed from `codex/native-and-plugins/1` on 2026-08-30. That name
+    // promised a projection this build does not declare: `projection_kinds` here
+    // is `[NativeFiles]` alone, and the plugin surfaces it seemed to announce are
+    // in `declined` with their reasons. A profile id is read by people deciding
+    // what a provider does before they read anything else, so a name that
+    // overpromises is the same defect class as a stale note -- a sentence that
+    // outlived what it described.
+    //
+    // **Surveyed before renaming, and the survey changed the answer.** A review
+    // reported three harnesses carrying this name as though all three were
+    // wrong. They are not: grok declares `Marketplace` and `Plugin` beside
+    // `NativeFiles`, and cursor declares `Plugin`, so for those two the name is
+    // accurate and only this one overpromises. Four others *understate* --
+    // claude's name omits `Plugin`, and pi, opencode and antigravity all read
+    // `native-files/1` while declaring a second kind. Understating is a
+    // convention question; this was a false statement, and only it is changed
+    // here.
+    //
+    // Safe to move now rather than never: the consumer measured that nothing on
+    // its side compares, stores or persists the id string -- it is read out of
+    // `provider-info` and never matched. It *is* an input to the profile digest,
+    // and this release moves that digest anyway by declaring the agent kind. The
+    // one consequence, named by the consumer and correct: an operation prepared
+    // before this release and resumed after it is refused with
+    // `projection_profile_mismatch`, which is this provider refusing to proceed
+    // on a plan bound to a profile that no longer exists.
+    profile_id: "codex/native-files/1",
     // Everything outside this list is a sibling overlay preserved verbatim.
     // `skills` and `.agents/skills` were here and are gone. Codex searches
     // `$HOME/.agents/skills` -- a *sibling* of `~/.codex`, not a child --
@@ -78,42 +104,38 @@ pub const CODEX: Harness = Harness {
         ComponentKind::Setting,
         ComponentKind::Hook,
         ComponentKind::Command,
-        // `ComponentKind::Agent` was here until 2026-08-28. Withdrawn because
-        // **a role is two files and a component of one kind is one thing in
-        // one namespace**, so there is no honest way to state this route at
-        // all. That reason survives a change of behaviour: if this product
-        // added a directory scan tomorrow, the kind would still be a stanza
-        // plus the layer it points at.
+        // `ComponentKind::Agent` was withdrawn on 2026-08-28 and is back on
+        // 2026-08-30, and the way the withdrawal was wrong is worth more than
+        // the fact that it was.
         //
-        // The measurement below came first and is the weaker half, which is
-        // worth saying because it read as the stronger one while it was the
-        // only one written down.
+        // The reason given was arity: *a role is two files and a component of
+        // one kind is one thing in one namespace*, said to survive a change of
+        // behaviour because a role would still be a stanza plus the layer it
+        // points at. It does not survive, because the premise was false when it
+        // was written. `agent-roles/src/discovery.rs` walks this directory and
+        // admits every `*.toml` not already named by a stanza, so a standalone
+        // `agents/<name>.toml` is a role on its own -- one file, one namespace,
+        // which is precisely what a component of one kind installs.
         //
-        // Measured by running the product against a temporary `CODEX_HOME`,
-        // not read off a page. A role is declared in `config.toml` and points
-        // at its own file:
+        // **The measurement could not have found this.** It planted an
+        // `agents/<name>.md` beside a working stanza and observed that nothing
+        // loaded it. The scan filters on `extension == "toml"`. A `.md` there is
+        // invisible whatever the truth is, so that control could not have
+        // failed, and a negative was recorded from an experiment incapable of
+        // producing a positive.
         //
-        //     [agents.<name>]
-        //     description = "..."
-        //     config_file = "agents/<name>.toml"
+        // Re-measured against the 0.151.0 artifact with a temporary CODEX_HOME,
+        // read back through `codex doctor`: a complete file is accepted in
+        // silence, one a directory deeper is too, an invented sibling directory
+        // is not scanned, and each of `name`, `description` and
+        // `developer_instructions` is refused by name when absent. The consumer
+        // reproduced it against the same binary before either side moved.
         //
-        // The mechanism is live and says so when the pointer is wrong --
-        // *"Ignoring malformed agent role definition:
-        // agents.broken-role.config_file must point to an existing file at
-        // .../agents/missing.toml"*. In the same run, an `agents/<name>.md`
-        // sitting beside it was loaded by nothing and complained about by
-        // nothing. The vendor's own configuration reference documents
-        // `agents.<name>.description` and `agents.<name>.config_file` and
-        // documents no directory scan.
-        //
-        // So the route needs two files written together, and a component of
-        // one kind is one thing installed in one namespace: there is no way to
-        // express "and also add a stanza to the settings file" in the kind
-        // model. `agents/` stays owned -- a backup captures it and a restore
-        // returns it -- and routes no kind, like `workflows` on the harness
-        // next door. This setup's own builder role is written as the pair,
-        // which is a setup writing two files it owns, not a component being
-        // routed.
+        // The stanza form still works and excludes its own file from the scan,
+        // so this setup's builder role stays the pair -- a setup owning two
+        // files it declares, which is a different thing from a component, and
+        // was the half of the old reasoning that was true.
+        ComponentKind::Agent,
     ],
     projection_kinds: &[
         ProjectionKind::NativeFiles,
@@ -124,8 +146,17 @@ pub const CODEX: Harness = Harness {
         //
         // A personal marketplace surface does exist, and finding it is why this
         // took two passes: the pinned binary says *"`~/.agents/plugins/
-        // marketplace.json` is discovered implicitly"*, with no `marketplace
-        // add` step. But it sits in `~/.agents` -- the `user_root` scope, whose
+        // marketplace.json` is discovered implicitly, but other marketplace
+        // paths are not"*, with no `marketplace add` step.
+        //
+        // Re-asked of the 0.151.0 linux/x86_64 bytes on 2026-08-30, because the
+        // sentence above names no version and nothing re-establishes it: the
+        // anchored literal appears eighteen times, that exact sentence is still
+        // there, and two invented paths searched in the same run return zero, so
+        // the search discriminates. This is the third decline on this harness
+        // re-measured that day, and the reason is the `agents` row above -- a
+        // decline taken against a release nobody pins is how that one stayed
+        // wrong for two. But it sits in `~/.agents` -- the `user_root` scope, whose
         // namespaces here are `["skills"]` alone -- so the declaration was on
         // the *global* profile, where nothing can hold one. **A declaration is
         // per profile, so backing it is per profile.**
@@ -377,6 +408,44 @@ mod tests {
         assert_eq!(info.harness_id, "codex");
         assert_eq!(info.protocol_version, 3);
         assert!(info.supports_this_host());
+    }
+
+    /// The kind this build declares can actually be written where it goes.
+    ///
+    /// `ComponentKind::Agent` is a promise of an install and a rollback, and the
+    /// machinery that keeps it is deliberately kind-agnostic: one membership
+    /// test decides whether a kind is implemented, and after that every
+    /// component takes the same path. So the half that is *not* generic, and the
+    /// half this declaration turns on, is whether a role's own path is one this
+    /// harness owns.
+    ///
+    /// Asked at three depths and with a control, because the reading that broke
+    /// `.agents/skills` once was matching on the first path component alone --
+    /// a namespace check that says yes to a directory it owns and no to the file
+    /// inside it would refuse every write to the route the compiler uses.
+    #[test]
+    fn a_role_lands_where_this_build_says_it_owns() {
+        assert!(HARNESS.owns("agents"), "the namespace itself");
+        assert!(
+            HARNESS.owns("agents/nddev-builder.toml"),
+            "a standalone role, which is what one agent component installs"
+        );
+        assert!(
+            HARNESS.owns("agents/nested/deeper.toml"),
+            "the product's scan is recursive, so a nested role is still ours"
+        );
+        // The control. Without it this test passes on a build that owns
+        // everything, which is the shape a namespace check fails into.
+        assert!(
+            !HARNESS.owns("agents-not-ours/role.toml"),
+            "a sibling directory nobody declared is not owned by prefix"
+        );
+        assert!(
+            HARNESS
+                .component_kinds
+                .contains(&provider_v3::ComponentKind::Agent),
+            "the path is owned and the kind is not declared, so nothing could install one"
+        );
     }
 
     #[test]

@@ -170,7 +170,7 @@ Configuration home as the product documents it: `~/.codex`.
 | `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference; anchored literal measured in the pinned artifact by scripts/evidence.py) |
 | `hooks.json` | `hook` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
 | `prompts` | `command` | [source](https://learn.chatgpt.com/docs/custom-prompts) |
-| `agents` | -- | [source](https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the 0.149.1 binary) |
+| `agents` | `agent` | [source](https://github.com/openai/codex/blob/rust-v0.151.0/codex-rs/agent-roles/src/discovery.rs; routing measured by running the 0.151.0 binary against a temporary CODEX_HOME) |
 
 A path routing no component kind is owned so a setup can carry it;
 nothing compiles a component to it.
@@ -218,11 +218,32 @@ The same build carries `legacy_managed_config_file`, `legacy_managed_config_mdm`
 
 **It bears on the `full-auto` posture**, exactly as the same surface does on the two harnesses that already record one. That setup writes a permissive approval policy and sandbox mode into the owned `config.toml`; under a managed policy those keys are correct, at a correct path, in a file the product reads — and a higher layer overrides them. Install, verify and restore all succeed and nothing about what the product permits has changed.
 
-Recorded and never touched. It needs root to write, it is outside the configuration home this provider is given, and owning an organisation's policy is the defect this estate has already shipped once: on the harness next door, owning a signed policy deleted it and kept its signatures, which is the one state that product's own gate refuses. ([source](measured in the 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference))
+Recorded and never touched. It needs root to write, it is outside the configuration home this provider is given, and owning an organisation's policy is the defect this estate has already shipped once: on the harness next door, owning a signed policy deleted it and kept its signatures, which is the one state that product's own gate refuses.
+
+**Corrected 2026-08-30: the sentence above measured one build and spoke about the product.** It said *"no macOS or Windows equivalent appears as a literal in this build, and none is claimed here"*, which was true and was read as a fact about codex rather than about a linux artifact. Windows paths are compiled out of a linux binary, so that search could only ever return zero.
+
+Asked of the Windows artifact instead -- `codex-0.151.0-win32-x64.tgz`, sha256 `9044e644…d7355` checked against this baseline's own table before extracting, `package/vendor/x86_64-pc-windows-msvc/bin/codex.exe`:
+
+  OpenAI\Codex\requirements.toml   6
+  OpenAI\Codex                      6
+  ProgramData                       7
+  OpenAI\Codex\config.toml          0
+  NddevInventedDir                  0   (control)
+  nddev-invented                    0   (control)
+
+So the managed **requirements** path is in the shipped Windows bytes as a joined literal, the config path beside it is composed at runtime and does not appear as one -- the same reason every runtime-joined path in this record reads `page` -- and the invented controls return zero, so the search discriminates. The pinned source agrees: `config/src/loader/mod.rs` at `rust-v0.151.0` documents `%ProgramData%\OpenAI\Codex\requirements.toml` and `…\config.toml` as the Windows system layers, `/etc/codex/…` as the Unix ones, and carries a `#[cfg(target_os = "macos")]` branch reading a managed requirements payload delivered by MDM.
+
+Still declined, and for the reason it always was: these are **system** paths, outside any target this provider is given. What changes is that the record no longer implies the product lacks them. ([source](measured in the 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference))
 
 **`mcp.json`** -- Codex keeps MCP servers under `[mcp_servers.<name>]` in `config.toml`, which this provider owns and writes and restores whole -- so MCP is already covered by the `setting` kind. **A key inside a file is not a projection surface**: declaring `mcp` here would promise to install, observe and roll back a fragment of a document, which nothing in this program does.
 
-There is no `mcp.json` under this home. The pinned 0.150.1 binary carries the literal twenty-two times and every one is about a *plugin's* servers -- `selected_executor_plugin_mcp.mcp.json` beside `.codex-plugin/plugin.json`, `.claude-plugin/plugin.json` and `.cursor-plugin/plugin.json`. Recorded because the string is there and a reader who greps for it will find it. ([source](measured from the pinned artifact, digest verified before reading (codex 0.150.1); https://learn.chatgpt.com/docs/config-file/config-reference))
+There is no `mcp.json` under this home. The 0.150.1 binary carried the literal twenty-two times and every one was about a *plugin's* servers -- `selected_executor_plugin_mcp.mcp.json` beside `.codex-plugin/plugin.json`, `.claude-plugin/plugin.json` and `.cursor-plugin/plugin.json`. Recorded because the string is there and a reader who greps for it will find it.
+
+**Re-asked of the 0.151.0 linux/x86_64 bytes on 2026-08-30, because a decline is only as current as the release it was taken against.** Twenty-three occurrences now, still every one a plugin context; `.codex/mcp.json` returns zero, and two invented paths searched in the same run return zero, so the search discriminates. `mcp_servers` appears forty times. The decline stands and is now measured against what this tree pins.
+
+Re-measured deliberately rather than left alone: the `agents` row above declined a kind on a 0.149.1 reading that 0.151.0 had already made false, and this is the other kind this harness withholds. A decline nobody re-asks is the shape that defect had.
+
+One false lead resolved while doing it, recorded so the next reader does not chase it: the strings table places `agents/openai.yaml` next to these literals, which would be alarming if it were a path under this home -- `agents` is a namespace this provider removes whole. It is not. It is `skill-creator/agents/openai.yaml`, an asset inside the product's own bundled sample skill, plus a capability-discovery message. Nothing writes into `$CODEX_HOME/agents` but a person and this provider. ([source](measured from the pinned artifact, digest verified before reading (codex 0.150.1); https://learn.chatgpt.com/docs/config-file/config-reference))
 
 ## Response
 

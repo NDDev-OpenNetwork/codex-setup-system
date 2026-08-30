@@ -1,7 +1,9 @@
-# Managed by codex-setup-system. The `[agents.nddev-builder]` stanza
-# in config.toml is what makes this file load; neither half works
-# alone, and a file dropped into this directory without the stanza is
-# read by nothing. Measured 2026-08-28 against a temporary CODEX_HOME.
+# Managed by codex-setup-system. A standalone role: this product scans
+# agents/ for *.toml and loads every file no [agents.<name>] stanza
+# already names. All three keys below are required -- measured against
+# the 0.151.0 binary, which refuses each by name when it is absent.
+name = "nddev-builder"
+description = "Work on codex-setup-system -- change a declaration, add or revise a setup, or check a target lifecycle end to end."
 developer_instructions = '''
 You are working inside `codex-setup-system`, one of seven NDDev setup systems
 that install a complete harness configuration and can put it back.
@@ -27,24 +29,26 @@ what it owns, ask the binary: `codex-setup-system provider-info`.
 
 ## Agent
 
-**Where it goes**: ``[agents.<name>]` in `config.toml`, pointing at a TOML layer`
+**Where it goes**: `~/.codex/agents/<name>.toml`
 
-**Decided by**: https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary
+**Decided by**: https://github.com/openai/codex/blob/rust-v0.151.0/codex-rs/agent-roles/src/discovery.rs; routing measured by running the 0.151.0 binary against a temporary CODEX_HOME
 
-**How it runs**: Codex spawns the role by the name in its stanza.
+**How it runs**: Codex spawns the role by its `name`.
 
-## Declaration
+## Keys
 
 | key | required | what it does |
 |---|---|---|
-| `description` | **yes** | Role guidance shown to Codex when choosing and spawning that agent type. |
-| `config_file` | no | Path to a TOML config layer for that role. Relative paths resolve from the config file that declares the role, not from the home. |
+| `name` | **yes** | The role's name. Refused when absent or empty. |
+| `description` | **yes** | Role guidance shown when choosing and spawning that agent type. |
+| `developer_instructions` | **yes** | The role's prompt. Refused when absent, and it is the one a reader leaves out. |
+| `nickname_candidates` | no | Names an agent spawned with this role may be given. |
 
 ## What bites
 
-- **A file in `agents/` is not an agent.** This is the one place in this estate where the obvious thing does not work, and it fails silently. A role is two artifacts: a stanza in the settings file and the layer it points at. Measured by running the product against a temporary home -- a bad pointer is reported, *"Ignoring malformed agent role definition: agents.broken-role.config_file must point to an existing file at ..."*, while an `agents/<name>.md` sitting beside it was loaded by nothing and complained about by nothing.
-- That is why `agents` routes no kind, and the reason is arity rather than behaviour. A component of one kind is one thing installed in one namespace, and this route needs two files written together -- there is no way to say "and also add a stanza to the settings file" in the kind model. That holds even if the product started scanning the directory tomorrow: the role would still be a stanza plus the layer it points at. The measured behaviour above is the weaker half of the reason, and it read as the stronger one for as long as it was the only half written down.
-- The layer is ordinary configuration, so it carries `developer_instructions` for the prompt rather than a Markdown body. This toolkit's own role is written exactly that way; read `agents/nddev-builder.toml` and the stanza in `config.toml` together as the worked example.
+- **All three fields above are refused when missing, and the third is the one you will forget.** Measured against the 0.151.0 binary with a temporary `CODEX_HOME`, read back through `codex doctor`: a file with `name` and `description` alone is refused with *"must define `developer_instructions`"*; without `name`, *"must define a non-empty `name`"*; without `description`, *"must define a description"*. A complete one is accepted in silence, and so is one a directory deeper.
+- **This page said the opposite until 2026-08-30, and how it was wrong is the part worth keeping.** It said a file in `agents/` is not an agent and a role is irreducibly a `[agents.<name>]` stanza plus the layer it points at. The measurement behind that planted an `agents/<name>.md` and observed that nothing loaded it -- and the product's discovery filters on `extension == "toml"`, so that control could not have failed whatever the truth was. A negative drawn from an experiment incapable of producing a positive.
+- **The stanza form still works.** A `[agents.<name>]` table with `config_file` names a role and excludes that file from the directory scan, so the two forms do not collide. This toolkit shipped as that pair until 2026-08-30 and ships as one standalone file now -- read `agents/nddev-builder.toml` as the worked example of the kind this provider declares.
 
 ## Before you ship one
 
