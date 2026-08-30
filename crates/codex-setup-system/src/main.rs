@@ -500,8 +500,18 @@ mod tests {
             manifest.join("../../setups")
         };
         let catalog = harness_runtime::Catalog::at(&root);
-        let problems = harness_runtime::catalog::undescribed(&catalog.list().unwrap());
-        assert!(problems.is_empty(), "{}", problems.join("\n  "));
+        let examined = harness_runtime::catalog::undescribed(&catalog.list().unwrap());
+        assert!(
+            examined.problems.is_empty(),
+            "{}",
+            examined.problems.join("\n  ")
+        );
+        // codex ships no skill and no agent file: its skills are `user_root` only and its agent is a role declared in `config.toml`. **Zero is the right number and it is the reason this count exists** -- the assertion below it was green here while examining nothing, and nobody could tell that from the six harnesses where it examined something.
+        assert_eq!(
+            examined.entry_points, 0,
+            "the description guard examined {} entry points, not 0",
+            examined.entry_points
+        );
     }
 
     #[test]
