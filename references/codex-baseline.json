@@ -217,7 +217,7 @@
     "version": "0.151.0",
     "verified_at": "2026-08-29T10:52:43+00:00"
   },
-  "setup_catalogue_digest": "sha256:42d1a3b2f3e550f5285155ab0f019df561c67d001259ff0f541cc5a5ff37fce4",
+  "setup_catalogue_digest": "sha256:fd8b7d37408a7c879146e5bfd1974b23ea2264087e72bdb1635794dc5f615f33",
   "second_pin_absent": {
     "measured_at": "2026-08-29",
     "note": "`software_update` and `rollback` cross two real releases, and this build pins one. The second slot fills by **rotation** rather than by choice: a vendor bump assigns `previous = current` and then sets `current`, so exactly one value moves per bump and the pair is always two consecutive real releases. `scripts/evidence.py::cross_two_releases` skips this harness and prints the reason, which is an absence of a second release rather than a failure.\n\nRecorded because a reader of this file otherwise cannot tell a gap from a fact. Four of the seven carry a second pin; these are the three that do not, and each for a different reason.\n\n**Fills on the next bump, and this vendor bumps often** -- `0.149.0`, `0.149.1`, `0.150.0`, `0.150.1` in the recent line. Seeding it by hand was tried on 2026-08-29 and abandoned on a measurement: the platform packages are **npm aliases** (`\"@openai/codex-linux-x64\": \"npm:@openai/codex@<version>-linux-x64\"`), so a prior release's artifact URL cannot be built from the package name -- asking the registry for the aliased name answers 404, which is exactly what the refresher's own comment says and exactly what happened. The authority is the wrapper's `optionalDependencies` at that version, which is what rotation reads anyway."
