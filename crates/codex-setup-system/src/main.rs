@@ -94,6 +94,10 @@ pub const CODEX: Harness = Harness {
     ],
     // The product's own: credentials, session history and runtime caches. Never
     // read, never written, and never copied into a backup slot.
+    // Nothing measured. This product's alternate spellings, if it has
+    // any, have not been asked for -- empty here says nobody looked,
+    // not that the product reads one name.
+    shadowing_names: &[],
     never_touch: &[
         "auth.json",
         "sessions",
