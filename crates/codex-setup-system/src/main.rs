@@ -4,7 +4,14 @@
 //! [`harness_runtime`], shared with every other setup system, so a change to
 //! behaviour lands once and a change to Codex CLI's surface lands here.
 //!
-//! Codex installs itself, so this provider owns the configuration only.
+//! This provider owns the configuration *and* the program: `src/software.rs`
+//! carries the artifacts its vendor publishes -- codex's are the ones whose member
+//! path carries the target triple, so they genuinely differ per platform -- and
+//! the software operations take a `--prefix` distinct from the `--target`.
+//!
+//! This line used to say *"Codex installs itself, so this provider owns the
+//! configuration only"*, which was the owner's original assignment rather than
+//! what the build does, and false from `7d156c2` onward.
 
 use std::process::ExitCode;
 
