@@ -29,6 +29,12 @@ pub const CODEX: Harness = Harness {
     vendor: "OpenAI",
     documented_config_home: "~/.codex",
     config_home_env: "CODEX_HOME",
+    // Measured 2026-08-30 in the pinned 0.151.0 artifact and absent: none of
+    // `DISABLE_UPDATES`, `DISABLE_AUTOUPDATER` or `auto_update` appears, and an
+    // invented variable searched in the same bytes is absent too, so the search
+    // discriminates. This product has an `update` subcommand and no variable
+    // this provider can set to stop it.
+    updates_off_env: "",
     // One home, one variable: nothing here is conditional.
     config_home_note: "",
     control_directory: ".codex-setup-system",
