@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "baseline",
-  "description": "A working floor: instructions plus conservative configuration.",
+  "description": "A working floor: instructions plus conservative configuration. Two of its three keys restate the pinned build's own defaults -- measured, with a control that discriminates -- and are kept so the posture states what it wants rather than inheriting a decision the vendor can move. `model_reasoning_effort` is the one that changes something, and the product's own `doctor` does not report it, so this posture cannot demonstrate that key from outside.",
   "sources": [
     "https://learn.chatgpt.com/docs/config-file/config-reference"
   ]
