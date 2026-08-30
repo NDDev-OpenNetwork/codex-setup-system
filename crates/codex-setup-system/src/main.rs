@@ -17,7 +17,7 @@ use std::process::ExitCode;
 
 mod software;
 
-use harness_runtime::{Harness, Scoped};
+use harness_runtime::{Harness, LaunchBinding, Scoped};
 use provider_v3::{ComponentKind, ProjectionKind, TargetScope};
 
 /// Everything specific to Codex CLI, verified against `codex-baseline.json`.
@@ -29,6 +29,11 @@ pub const CODEX: Harness = Harness {
     vendor: "OpenAI",
     documented_config_home: "~/.codex",
     config_home_env: "CODEX_HOME",
+    // Measured 2026-08-28 by asking: launched through this provider, the
+    // product named the target as its own `codex_home` in its output.
+    launch_binding: LaunchBinding::Complete {
+        how: "measured by asking the product which home it resolved",
+    },
     // Measured 2026-08-30 in the pinned 0.151.0 artifact and absent: none of
     // `DISABLE_UPDATES`, `DISABLE_AUTOUPDATER` or `auto_update` appears, and an
     // invented variable searched in the same bytes is absent too, so the search
