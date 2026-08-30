@@ -170,7 +170,7 @@ Configuration home as the product documents it: `~/.codex`.
 | `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference; anchored literal measured in the pinned artifact by scripts/evidence.py) |
 | `hooks.json` | `hook` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
 | `prompts` | `command` | [source](https://learn.chatgpt.com/docs/custom-prompts) |
-| `agents` | -- | [source](https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the pinned 0.149.1 binary) |
+| `agents` | -- | [source](https://learn.chatgpt.com/docs/config-file/config-reference; routing measured against the 0.149.1 binary) |
 
 A path routing no component kind is owned so a setup can carry it;
 nothing compiles a component to it.
@@ -183,7 +183,7 @@ every path below is relative to that root.
 
 | Path | Component kinds routed here | Decided by |
 | --- | --- | --- |
-| `skills` | `skill` | [source](https://learn.chatgpt.com/docs/build-skills, and measured by running the pinned 0.150.1 product against a temporary HOME, 2026-08-29) |
+| `skills` | `skill` | [source](https://learn.chatgpt.com/docs/build-skills, and measured by running the 0.150.1 product against a temporary HOME, 2026-08-29) |
 
 This root is read by several products at once, so under this scope
 `remove`, the backup and a restore act on the files this program
@@ -208,7 +208,7 @@ other file beside a target.
 
 **`.codex-setup-system`** -- This provider's own control directory: the target lock, the backup slots and their payloads. Kept out of the declaration for the same reason as the state file, and recorded here because the declined list is where a reader looks before opening a file to find out what it is. ([source](this provider's own contract; no vendor page is involved))
 
-**`managed-config`** -- Not a path in the target, and named without an extension for that reason: this product's managed policy lives at a **system** path, and every recorded path here is relative to the target. Three literals in the pinned 0.149.1 binary:
+**`managed-config`** -- Not a path in the target, and named without an extension for that reason: this product's managed policy lives at a **system** path, and every recorded path here is relative to the target. Three literals in the 0.149.1 binary:
 
   * `/etc/codex/managed_config.toml` — the administrator's policy
   * `/etc/codex/requirements.toml` — the clamp above it
@@ -218,7 +218,7 @@ The same build carries `legacy_managed_config_file`, `legacy_managed_config_mdm`
 
 **It bears on the `full-auto` posture**, exactly as the same surface does on the two harnesses that already record one. That setup writes a permissive approval policy and sandbox mode into the owned `config.toml`; under a managed policy those keys are correct, at a correct path, in a file the product reads — and a higher layer overrides them. Install, verify and restore all succeed and nothing about what the product permits has changed.
 
-Recorded and never touched. It needs root to write, it is outside the configuration home this provider is given, and owning an organisation's policy is the defect this estate has already shipped once: on the harness next door, owning a signed policy deleted it and kept its signatures, which is the one state that product's own gate refuses. ([source](measured in the pinned 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference))
+Recorded and never touched. It needs root to write, it is outside the configuration home this provider is given, and owning an organisation's policy is the defect this estate has already shipped once: on the harness next door, owning a signed policy deleted it and kept its signatures, which is the one state that product's own gate refuses. ([source](measured in the 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference))
 
 **`mcp.json`** -- Codex keeps MCP servers under `[mcp_servers.<name>]` in `config.toml`, which this provider owns and writes and restores whole -- so MCP is already covered by the `setting` kind. **A key inside a file is not a projection surface**: declaring `mcp` here would promise to install, observe and roll back a fragment of a document, which nothing in this program does.
 
