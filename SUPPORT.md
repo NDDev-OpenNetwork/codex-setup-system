@@ -167,10 +167,10 @@ Configuration home as the product documents it: `~/.codex`.
 | Path | Component kinds routed here | Decided by |
 | --- | --- | --- |
 | `AGENTS.md` | `instruction` | [source](https://learn.chatgpt.com/docs/agent-configuration/agents-md) |
-| `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference; anchored literal measured in the pinned artifact by scripts/evidence.py) |
+| `config.toml` | `setting` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) -- anchored literal measured in the pinned artifact by scripts/evidence.py |
 | `hooks.json` | `hook` | [source](https://learn.chatgpt.com/docs/config-file/config-reference) |
 | `prompts` | `command` | [source](https://learn.chatgpt.com/docs/custom-prompts) |
-| `agents` | `agent` | [source](https://github.com/openai/codex/blob/rust-v0.151.0/codex-rs/agent-roles/src/discovery.rs; routing measured by running the 0.151.0 binary against a temporary CODEX_HOME) |
+| `agents` | `agent` | [source](https://github.com/openai/codex/blob/rust-v0.151.0/codex-rs/agent-roles/src/discovery.rs) -- routing measured by running the 0.151.0 binary against a temporary CODEX_HOME |
 
 A path routing no component kind is owned so a setup can carry it;
 nothing compiles a component to it.
@@ -183,7 +183,7 @@ every path below is relative to that root.
 
 | Path | Component kinds routed here | Decided by |
 | --- | --- | --- |
-| `skills` | `skill` | [source](https://learn.chatgpt.com/docs/build-skills, and measured by running the 0.150.1 product against a temporary HOME, 2026-08-29) |
+| `skills` | `skill` | [source](https://learn.chatgpt.com/docs/build-skills) -- and measured by running the 0.150.1 product against a temporary HOME, 2026-08-29 |
 
 This root is read by several products at once, so under this scope
 `remove`, the backup and a restore act on the files this program
@@ -196,7 +196,7 @@ by a restore.
 Everything named here is left exactly as it was found, like any
 other file beside a target.
 
-**`skills`** -- Codex does read personal skills from here, and this record used to say it did not. Measured 2026-08-28 by installing the product through this provider and driving it with `debug prompt-input`, which renders the model-visible skills list: a SKILL.md at $CODEX_HOME/skills/<name>/ is listed, with that locator. The earlier reason -- "Codex has no skills directory under its own home" -- was read off the page and the page does not say it; it lists where skills are found and is silent about this one. A negative taken from a document that never made it. Declined all the same, for two reasons that compound. First, no page says so: learn.chatgpt.com/docs/build-skills names the working directory and its parents to the repository root, $REPO_ROOT/.agents/skills, $HOME/.agents/skills, /etc/codex/skills, and skills bundled by OpenAI -- not this; and github.com/openai/codex/blob/main/docs/skills.md links to developers.openai.com/codex/skills, which redirects back to that same page, so there is one source reached two ways rather than two sources. Second, the product manages this directory: its own bundled skills materialise at skills/.system/, and deleting that directory entirely made the product rebuild all six on the next start. Owning `skills` would make `remove` delete the product's own along with ours, and the only evidence that this survives is the product's willingness to recover -- behaviour rather than a promise, true until the product changes. The documented user-level path is $HOME/.agents/skills, outside any product's configuration home, which is what the consumer's ADR-0127 proposes a scope for. ([source](measured through launch; learn.chatgpt.com/docs/build-skills lists six locations and not this one))
+**`skills`** -- Codex does read personal skills from here, and this record used to say it did not. Measured 2026-08-28 by installing the product through this provider and driving it with `debug prompt-input`, which renders the model-visible skills list: a SKILL.md at $CODEX_HOME/skills/<name>/ is listed, with that locator. The earlier reason -- "Codex has no skills directory under its own home" -- was read off the page and the page does not say it; it lists where skills are found and is silent about this one. A negative taken from a document that never made it. Declined all the same, for two reasons that compound. First, no page says so: learn.chatgpt.com/docs/build-skills names the working directory and its parents to the repository root, $REPO_ROOT/.agents/skills, $HOME/.agents/skills, /etc/codex/skills, and skills bundled by OpenAI -- not this; and github.com/openai/codex/blob/main/docs/skills.md links to developers.openai.com/codex/skills, which redirects back to that same page, so there is one source reached two ways rather than two sources. Second, the product manages this directory: its own bundled skills materialise at skills/.system/, and deleting that directory entirely made the product rebuild all six on the next start. Owning `skills` would make `remove` delete the product's own along with ours, and the only evidence that this survives is the product's willingness to recover -- behaviour rather than a promise, true until the product changes. The documented user-level path is $HOME/.agents/skills, outside any product's configuration home, which is what the consumer's ADR-0127 proposes a scope for. (measured through launch; learn.chatgpt.com/docs/build-skills lists six locations and not this one)
 
 **`.agents/skills`** -- The user-scope skills directory is $HOME/.agents/skills -- a sibling of ~/.codex, not a child of it. Declared relative to this provider's target it resolves to ~/.codex/.agents/skills, which Codex never reads. Same shape as the pi managed_paths defect. ([source](https://learn.chatgpt.com/docs/build-skills))
 
@@ -204,9 +204,9 @@ other file beside a target.
 
 **`AGENTS.override.md`** -- Codex reads this **before** AGENTS.md at global scope and takes only the first non-empty file at that level, so a home holding a non-empty one ignores the instruction file this provider installs. An empty override does not silence the floor -- Codex skips empty files -- which is worth knowing before concluding that a present override is the reason instructions are not applying. Deliberately not owned: an override exists so a person can escape a managed floor, and a provider that owned it could remove the escape with `remove`. ([source](https://learn.chatgpt.com/docs/agent-configuration/agents-md))
 
-**`NDDEV-CODEX-PROVIDER.json`** -- This provider's own state file: which setup is applied, the identity it recorded, and which slot reverses the last operation. Written by every operation and excluded from target identity, because counting it would leave a target different from the identity the operation just wrote. Not a projection surface and never ownable as one. ([source](this provider's own contract; no vendor page is involved))
+**`NDDEV-CODEX-PROVIDER.json`** -- This provider's own state file: which setup is applied, the identity it recorded, and which slot reverses the last operation. Written by every operation and excluded from target identity, because counting it would leave a target different from the identity the operation just wrote. Not a projection surface and never ownable as one. (this provider's own contract; no vendor page is involved)
 
-**`.codex-setup-system`** -- This provider's own control directory: the target lock, the backup slots and their payloads. Kept out of the declaration for the same reason as the state file, and recorded here because the declined list is where a reader looks before opening a file to find out what it is. ([source](this provider's own contract; no vendor page is involved))
+**`.codex-setup-system`** -- This provider's own control directory: the target lock, the backup slots and their payloads. Kept out of the declaration for the same reason as the state file, and recorded here because the declined list is where a reader looks before opening a file to find out what it is. (this provider's own contract; no vendor page is involved)
 
 **`managed-config`** -- Not a path in the target, and named without an extension for that reason: this product's managed policy lives at a **system** path, and every recorded path here is relative to the target. Three literals in the 0.149.1 binary:
 
@@ -233,7 +233,7 @@ Asked of the Windows artifact instead -- `codex-0.151.0-win32-x64.tgz`, sha256 `
 
 So the managed **requirements** path is in the shipped Windows bytes as a joined literal, the config path beside it is composed at runtime and does not appear as one -- the same reason every runtime-joined path in this record reads `page` -- and the invented controls return zero, so the search discriminates. The pinned source agrees: `config/src/loader/mod.rs` at `rust-v0.151.0` documents `%ProgramData%\OpenAI\Codex\requirements.toml` and `…\config.toml` as the Windows system layers, `/etc/codex/…` as the Unix ones, and carries a `#[cfg(target_os = "macos")]` branch reading a managed requirements payload delivered by MDM.
 
-Still declined, and for the reason it always was: these are **system** paths, outside any target this provider is given. What changes is that the record no longer implies the product lacks them. ([source](measured in the 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference))
+Still declined, and for the reason it always was: these are **system** paths, outside any target this provider is given. What changes is that the record no longer implies the product lacks them. (measured in the 0.149.1 binary; https://learn.chatgpt.com/docs/config-file/config-reference)
 
 **`mcp.json`** -- Codex keeps MCP servers under `[mcp_servers.<name>]` in `config.toml`, which this provider owns and writes and restores whole -- so MCP is already covered by the `setting` kind. **A key inside a file is not a projection surface**: declaring `mcp` here would promise to install, observe and roll back a fragment of a document, which nothing in this program does.
 
@@ -243,7 +243,7 @@ There is no `mcp.json` under this home. The 0.150.1 binary carried the literal t
 
 Re-measured deliberately rather than left alone: the `agents` row above declined a kind on a 0.149.1 reading that 0.151.0 had already made false, and this is the other kind this harness withholds. A decline nobody re-asks is the shape that defect had.
 
-One false lead resolved while doing it, recorded so the next reader does not chase it: the strings table places `agents/openai.yaml` next to these literals, which would be alarming if it were a path under this home -- `agents` is a namespace this provider removes whole. It is not. It is `skill-creator/agents/openai.yaml`, an asset inside the product's own bundled sample skill, plus a capability-discovery message. Nothing writes into `$CODEX_HOME/agents` but a person and this provider. ([source](measured from the pinned artifact, digest verified before reading (codex 0.150.1); https://learn.chatgpt.com/docs/config-file/config-reference))
+One false lead resolved while doing it, recorded so the next reader does not chase it: the strings table places `agents/openai.yaml` next to these literals, which would be alarming if it were a path under this home -- `agents` is a namespace this provider removes whole. It is not. It is `skill-creator/agents/openai.yaml`, an asset inside the product's own bundled sample skill, plus a capability-discovery message. Nothing writes into `$CODEX_HOME/agents` but a person and this provider. (measured from the pinned artifact, digest verified before reading (codex 0.150.1); https://learn.chatgpt.com/docs/config-file/config-reference)
 
 ## Response
 
