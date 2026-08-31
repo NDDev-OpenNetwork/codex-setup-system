@@ -225,6 +225,10 @@ Decided by: https://learn.chatgpt.com/docs/agent-configuration/agents-md
 
 This row stays `page` because **a path built by joining a directory to a name at runtime never appears as a literal**, and that is the shape of every remaining one. Moving it off `page` needs the product run against a target and asked what it resolved, not a deeper grep.
 
+**Off `page` on 2026-08-31, by running the product and asking what it resolved -- which is what this row said it would take.** The pinned `codex-0.151.0-linux-x64.tgz` was fetched, its digest checked against the artifact table, and `codex debug prompt-input` run against a temporary `CODEX_HOME`. That command renders the model-visible input as JSON, and a marker written into the instruction file at the configuration home is in it.
+
+**Two controls, because one proves nothing.** A marker never written to any file is absent from the same output, so the search discriminates; and removing the file makes the marker disappear, so the result is about this file rather than about anything else the command renders. The earlier session was right that a deeper grep could not settle this -- the instrument was a command nobody had looked for.
+
 ## Where the other harnesses keep theirs
 
 | harness | path | shape |

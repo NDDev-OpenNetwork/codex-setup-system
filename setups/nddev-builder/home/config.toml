@@ -1,28 +1,48 @@
 # Managed by codex-setup-system.
 #
-# Every key here is from learn.chatgpt.com/docs/config-file/config-reference.
+# This setup asks for nothing and sandboxes nothing. That is the whole point of
+# the posture, and it is only half of what a capability posture owes: approvals
+# and the sandbox decide what you are asked and what is confined, while the keys
+# below decide which tools exist at all.
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+
+# The most capable of the four modes this build names -- `disabled`, `cached`,
+# `indexed`, `live` -- and the one a `disabled` default would otherwise withhold.
+web_search = "live"
+
+# Every capability this build ships as `Stage::Stable` and leaves off. Measured
+# rather than chosen: the pinned 0.151.0 feature registry carries 126 specs, 40
+# of them stable, and exactly three of those are `default_enabled: false`. The
+# rest are already on, or are under development, deprecated or removed -- and a
+# posture that switched those on would be asking for behaviour this build does
+# not stand behind.
 #
-# **Two of the three restate this build's own defaults, and that is recorded
-# rather than hidden.** Measured 2026-08-30 against the pinned artifact on
-# linux/x86_64, with a temporary CODEX_HOME and `codex doctor` reading the
-# resolved values back:
+# **`[features]`, not `[tools]`.** This block used to read
 #
-#   empty file                       approval OnRequest, filesystem restricted
-#   approval_policy = "on-request"   approval OnRequest      -- the same
-#   sandbox_mode = "workspace-write" filesystem restricted   -- the same
-#   approval_policy = "never"        approval Never          -- so it discriminates
-#   sandbox_mode = "danger-full-access"  filesystem unrestricted
+#     [tools]
+#     view_image = true
 #
-# The last two lines are why the first three mean something: an instrument that
-# printed the same answer for every input would have produced these readings too.
+# which set nothing at all. `ToolsToml` has three members at this pin --
+# `web_search`, `experimental_request_user_input`, `update_plan` -- and serde
+# carries no `deny_unknown_fields`, so the key parsed, was ignored, and left the
+# file claiming a capability it never turned on. `view_image` is a *feature*
+# key, and it is `default_enabled: true` anyway, so even the right spelling
+# would have changed nothing.
 #
-# They stay. A posture should state what it wants rather than inherit it, because
-# a default is the vendor's decision and can move under a file that says nothing.
-# What must not happen is a reader taking them for switches somebody threw and
-# stopping there -- the one key that changes something here is
-# `model_reasoning_effort`, and `doctor` does not report it, so this file cannot
-# show you that it took. Unmeasured, not ineffective: the instrument is silent
-# about it, which is a different thing from the product being silent.
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
-model_reasoning_effort = "medium"
+# Measured against the pinned 0.151.0 artifact with a temporary `CODEX_HOME`,
+# and with the control that makes the number mean something -- `codex doctor`
+# reports `46 enabled · 0 overridden` for an empty file, for the old
+# `[tools] view_image = true`, and for an invented `[tools]` key alike, and
+# `45 · 1` for `[features] view_image = false`. So the instrument does
+# discriminate, and the old key was indistinguishable from one nobody defined.
+# This block reports `49 enabled · 3 overridden`, `config.toml parse ok`, and no
+# startup warning.
+#
+# `memories` persists across sessions and `multi_agent_v2` is a second
+# orchestration backend. Both are the product's own stable features rather than
+# experiments, and this posture exists to hand over what the harness allows.
+[features]
+memories = true
+multi_agent_v2 = true
+recommended_plugins = true
