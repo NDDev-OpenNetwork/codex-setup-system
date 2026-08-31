@@ -34,11 +34,17 @@ pub const CODEX: Harness = Harness {
     launch_binding: LaunchBinding::Complete {
         how: "measured by asking the product which home it resolved",
     },
-    // Measured 2026-08-30 in the pinned 0.151.0 artifact and absent: none of
-    // `DISABLE_UPDATES`, `DISABLE_AUTOUPDATER` or `auto_update` appears, and an
-    // invented variable searched in the same bytes is absent too, so the search
-    // discriminates. This product has an `update` subcommand and no variable
-    // this provider can set to stop it.
+    // **Asked, and there is none.** Measured 2026-08-31 against the pinned
+    // 0.151.0 artifact, its digest checked against the artifact table:
+    // 26 `CODEX_*` names appear in it, and not one of them
+    // carries `UPDATE` or `UPGRADE`. An invented name was searched in the
+    // same run and found zero times, so the search discriminates.
+    //
+    // Empty here used to mean nobody had looked, which reads the same as
+    // this and is a different statement. Three of the seven do carry one --
+    // claude's `DISABLE_UPDATES`, opencode's `OPENCODE_DISABLE_AUTOUPDATE`,
+    // grok's `GROK_DISABLE_AUTOUPDATER` -- so the absence is a property of
+    // this product rather than of the question.
     updates_off_env: "",
     // One home, one variable: nothing here is conditional.
     config_home_note: "",
@@ -98,6 +104,9 @@ pub const CODEX: Harness = Harness {
     // any, have not been asked for -- empty here says nobody looked,
     // not that the product reads one name.
     shadowing_names: &[],
+    // Every owned namespace here routes a kind or is filled by a setup,
+    // so exact state has something to say about each one.
+    custody_namespaces: &[],
     never_touch: &[
         "auth.json",
         "sessions",
