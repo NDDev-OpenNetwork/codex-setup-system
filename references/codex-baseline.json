@@ -286,5 +286,17 @@
     "measured_at": "2026-08-30",
     "evidence": "ran",
     "note": "This product publishes a JSON Schema for its own configuration file as a release asset, generated from the same Rust types it parses with, and it is `additionalProperties: false` at the top level and inside `ToolsToml`. So the vendor will say, in machine-readable form, whether a key we write is a key it has.\n\n**A version template rather than a url.** `{version}` is filled from `software_artifacts.version`, so the schema fetched is always the schema of the release this tree pins. A literal url would be a second place the version lives, and a pin refresh would move one and not the other -- which is the shape of the defect this block was added after.\n\n**Red-first, against the vendor's own answer.** The `full-auto` file this replaced wrote `view_image` under `[tools]`, and validating it against this schema returns *\"Additional properties are not allowed ('view_image' was unexpected)\"* at `['tools']`; the corrected file validates. Nothing in this repository could say that before, because a `config.toml` has no `$schema` line to name and the schema sweep only looked at files that carry one."
+  },
+  "surface_presence": {
+    "measured_at": "2026-09-02",
+    "artifact": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.1-linux-x64.tgz",
+    "artifact_sha256": "sha256:0ed4978e80117a5e203a436026c37276029a3642d633b6916ab45143d10565cd",
+    "product_version": "0.152.1",
+    "declared_surfaces": 6,
+    "present": 6,
+    "absent": [],
+    "control": "zzq-invented-surface-nobody-ships",
+    "control_hits": 0,
+    "method": "Every namespace this harness declares, global and scoped, searched as a fixed string in the artifact the current pin names, digest verified before reading; both the declared path and its last segment counted, because a product that composes a path by joining segments never spells the whole of it. A count here is a lower bound and not a routing proof -- what it answers is whether a surface vanished from the product under a version bump, which five of the seven took on 2026-09-02. The invented control was searched in the same run and found nowhere, so the search discriminates."
   }
 }
