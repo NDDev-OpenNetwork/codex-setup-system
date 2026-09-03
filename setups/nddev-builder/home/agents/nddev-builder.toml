@@ -284,6 +284,12 @@ The documented user-level skills directory is $HOME/.agents/skills. Relative to 
 **With a control, because a positive without one says nothing.** A second skill was placed at `$HOME/.agents-not-a-root/skills/` -- a sibling root no page names -- and it is absent from the same listing. So the product is reading the documented root rather than scanning `$HOME` broadly, which is the reading a bare positive could not distinguish.
 
 
+Considered under this scope and not owned:
+
+- **`agents`** — No page names a user-level agents directory under the .agents convention. learn.chatgpt.com/docs/build-skills documents skills at $HOME/.agents/skills and says nothing about siblings; a declared kind is a promise of a rollback, and this one would promise a rollback of a directory nothing reads.
+- **`AGENTS.md`** — Instructions at user level are ~/.codex/AGENTS.md, which the global scope already owns. A second copy under the convention root would be a second statement of one fact, and nothing documents Codex reading it there.
+
+
 **A setup cannot carry one of these.** A setup is installed into one
 target and its payload is relative to that target, so a component
 for this scope is installed by the consumer against that root -- not
@@ -316,6 +322,11 @@ Measured by running the digest-verified 0.153.0 binary with `debug prompt-input`
 ### `.codex/hooks.json`, as measured
 
 The project hook manifest retains its .codex parent under the repository root. Trust and handler approval remain product concerns; this provider owns exact bytes and restores them, but does not claim that installing a file grants execution trust.
+
+
+Considered under this scope and not owned:
+
+- **`AGENTS.override.md`** — This is an intentional project-local override. A setup owning it could silently suppress the shared AGENTS.md it installs.
 
 
 **A setup cannot carry one of these.** A setup is installed into one
