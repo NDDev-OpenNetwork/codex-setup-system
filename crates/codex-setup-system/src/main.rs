@@ -258,19 +258,27 @@ pub const CODEX: Harness = Harness {
     // this block is the method rather than its conclusions: the root was
     // weighed against every other product before it was owned, and the answer
     // moved twice while the measurement stayed right.
-    scoped_projections: &[Scoped {
-        target_scope: TargetScope::UserRoot,
-        // Distinct from the global identity, because the digest binds a
-        // declaration together with the scope it owns.
-        profile_id: "codex/native-files/user-root/1",
-        component_kinds: &[ComponentKind::Skill],
-        projection_kinds: &[ProjectionKind::NativeFiles],
-        // Relative to `~/.agents`, which is the target this scope names -- so a
-        // skill is `skills/<name>` rather than `.agents/skills/<name>`. Writing
-        // the root into the path would be the eighth face of one sentence: a
-        // path is only a path together with what it is relative to.
-        native_namespaces: &["skills"],
-    }],
+    scoped_projections: &[
+        Scoped {
+            target_scope: TargetScope::UserRoot,
+            // Distinct from the global identity, because the digest binds a
+            // declaration together with the scope it owns.
+            profile_id: "codex/native-files/user-root/1",
+            component_kinds: &[ComponentKind::Skill],
+            projection_kinds: &[ProjectionKind::NativeFiles],
+            // Relative to `~/.agents`, which is the target this scope names.
+            native_namespaces: &["skills"],
+        },
+        Scoped {
+            target_scope: TargetScope::Project,
+            profile_id: "codex/native-files/project/1",
+            component_kinds: &[ComponentKind::Instruction, ComponentKind::Hook],
+            projection_kinds: &[ProjectionKind::NativeFiles],
+            // Repository instructions live at the root. Hooks retain the
+            // product-owned `.codex` parent relative to that same root.
+            native_namespaces: &["AGENTS.md", ".codex/hooks.json"],
+        },
+    ],
     max_files: 8192,
     max_bytes: 64 * 1024 * 1024,
     kit_identity: include_str!("../../../provider-kit/v3/KIT-IDENTITY.json"),
