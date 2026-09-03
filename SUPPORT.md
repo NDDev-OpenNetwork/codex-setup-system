@@ -191,6 +191,23 @@ recorded writing rather than on the directory whole. A neighbour's
 files are never captured into a backup slot here, and never reverted
 by a restore.
 
+### A second target: `target_scope: project`
+
+Rooted at `project root`, which is not the configuration home
+above. A consumer reaches it by naming the scope on the request, and
+every path below is relative to that root.
+
+| Path | Component kinds routed here | Decided by |
+| --- | --- | --- |
+| `AGENTS.md` | `instruction` | [source](https://developers.openai.com/codex/guides/agents-md) -- codex-0.153.0-linux-x64.tgz sha256:856f408ea61b44a381b7d6fb7c82365dfcef649ae2a340fc01282cf63c30cd8a, run 2026-09-03 |
+| `.codex/hooks.json` | `hook` | [source](https://developers.openai.com/codex/hooks) -- path and project scope carried by the Codex 0.153.0 hook configuration implementation |
+
+This root is read by several products at once, so under this scope
+`remove`, the backup and a restore act on the files this program
+recorded writing rather than on the directory whole. A neighbour's
+files are never captured into a backup slot here, and never reverted
+by a restore.
+
 ### Considered and not owned
 
 Everything named here is left exactly as it was found, like any
@@ -200,7 +217,7 @@ other file beside a target.
 
 **`.agents/skills`** -- The user-scope skills directory is $HOME/.agents/skills -- a sibling of ~/.codex, not a child of it. Declared relative to this provider's target it resolves to ~/.codex/.agents/skills, which Codex never reads. Same shape as the pi managed_paths defect. ([source](https://learn.chatgpt.com/docs/build-skills))
 
-**`plugins`** -- Codex plugins are drawn from a hosted directory shared with ChatGPT, not from a folder under the Codex home. ([source](https://learn.chatgpt.com/docs/codex/cli))
+**`plugins`** -- Codex plugins are drawn from remote marketplaces shared with ChatGPT, not from a folder under the Codex home. Re-checked against the official rust-v0.153.0 release notes on 2026-09-03: the new plugin CLI can list, install and remove plugins from remote marketplaces. That is an acquisition command and product-managed state, not a new provider-owned projection path, so the decline remains correct and the nddev-builder must not manufacture a local plugins namespace. ([source](https://learn.chatgpt.com/docs/codex/cli))
 
 **`AGENTS.override.md`** -- Codex reads this **before** AGENTS.md at global scope and takes only the first non-empty file at that level, so a home holding a non-empty one ignores the instruction file this provider installs. An empty override does not silence the floor -- Codex skips empty files -- which is worth knowing before concluding that a present override is the reason instructions are not applying. Deliberately not owned: an override exists so a person can escape a managed floor, and a provider that owned it could remove the escape with `remove`. ([source](https://learn.chatgpt.com/docs/agent-configuration/agents-md))
 
