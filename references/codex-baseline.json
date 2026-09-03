@@ -21,12 +21,12 @@
     "desktop_documented_product": "ChatGPT",
     "desktop_pinned_cli_packaging": "Codex.app/Codex.dmg",
     "installer_asset": "install.sh",
-    "installer_release": "rust-v0.153.0",
-    "installed_version": "0.153.0",
+    "installer_release": "rust-v0.153.1",
+    "installed_version": "0.153.1",
     "standalone_layout": "packages/standalone"
   },
   "verified_version_ref": "build/version.json:codex_cli_tested",
-  "verified_at": "2026-09-03T14:02:48+00:00",
+  "verified_at": "2026-09-03T22:15:16+00:00",
   "native_surfaces": {
     "verified_at": "2026-08-31",
     "config_home": "~/.codex",
@@ -95,7 +95,7 @@
       },
       {
         "path": "plugins",
-        "reason": "Codex plugins are drawn from remote marketplaces shared with ChatGPT, not from a folder under the Codex home. Re-checked against the official rust-v0.153.0 release notes on 2026-09-03: the new plugin CLI can list, install and remove plugins from remote marketplaces. That is an acquisition command and product-managed state, not a new provider-owned projection path, so the decline remains correct and the nddev-builder must not manufacture a local plugins namespace.",
+        "reason": "Codex plugins are drawn from remote marketplaces shared with ChatGPT, not from a folder under the Codex home. Re-checked against the official rust-v0.153.0 release notes on 2026-09-03: the new plugin CLI can list, install and remove plugins from remote marketplaces. Re-checked against rust-v0.153.1 on 2026-09-04: that tag only backports GPT-6-Astra into the API model catalog, without adding it to the picker and without a new provider-owned path. That is an acquisition command and product-managed state, not a new provider-owned projection path, so the decline remains correct and the nddev-builder must not manufacture a local plugins namespace.",
         "source": "https://learn.chatgpt.com/docs/codex/cli"
       },
       {
@@ -161,7 +161,9 @@
         "surfaces": [
           {
             "path": "AGENTS.md",
-            "kinds": ["instruction"],
+            "kinds": [
+              "instruction"
+            ],
             "shape": "file",
             "source": "https://developers.openai.com/codex/guides/agents-md; codex-0.153.0-linux-x64.tgz sha256:856f408ea61b44a381b7d6fb7c82365dfcef649ae2a340fc01282cf63c30cd8a, run 2026-09-03",
             "evidence": "ran",
@@ -169,7 +171,9 @@
           },
           {
             "path": ".codex/hooks.json",
-            "kinds": ["hook"],
+            "kinds": [
+              "hook"
+            ],
             "shape": "file",
             "source": "https://developers.openai.com/codex/hooks; path and project scope carried by the Codex 0.153.0 hook configuration implementation",
             "evidence": "page",
@@ -204,6 +208,51 @@
     "note": "This names what the Codex product does about permissions -- a beta feature of the product, read from its own documentation. It is NOT this provider's protocol field of the same name, which is permission_profiles in provider-info and is [\"default\"] on every one of the seven. The two share a word and name different axes. Renamed rather than annotated in place, for the reason docs/CONSUMER-GAPS.md records the last time this estate met the pattern: the shared name is the trap, and no amount of documentation survives the next reader."
   },
   "software_artifacts": {
+    "command": "codex",
+    "shape": "gzip-tar",
+    "platforms": {
+      "linux/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.1-linux-arm64.tgz",
+        "bytes": 121697093,
+        "sha256": "sha256:3e050251b40b334e74a27c52128b86f8468fa8242d5c8205b04f4b31f85690f7",
+        "member": "package/vendor/aarch64-unknown-linux-musl/bin/codex"
+      },
+      "linux/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.1-linux-x64.tgz",
+        "bytes": 129241027,
+        "sha256": "sha256:33b4ae16df4530361a651bc1540ae8de325ccc789622a812c94585bdf205f7f4",
+        "member": "package/vendor/x86_64-unknown-linux-musl/bin/codex"
+      },
+      "macos/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.1-darwin-arm64.tgz",
+        "bytes": 115673114,
+        "sha256": "sha256:33babfe9db041ff18100775bf34df673c1baf9a5d7b1d09fdcafefc58501aa87",
+        "member": "package/vendor/aarch64-apple-darwin/bin/codex"
+      },
+      "macos/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.1-darwin-x64.tgz",
+        "bytes": 123566510,
+        "sha256": "sha256:bafcac30746296be53a183ff907b9ae59cef9f8e65fa511abcb7661bd247bf80",
+        "member": "package/vendor/x86_64-apple-darwin/bin/codex"
+      },
+      "windows/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.1-win32-arm64.tgz",
+        "bytes": 132174290,
+        "sha256": "sha256:5ee2fab96e2ba898ea7e4c0c8f4222f4dfd08d0ea9b4c9b849323ebb1e90ef14",
+        "member": "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe"
+      },
+      "windows/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.1-win32-x64.tgz",
+        "bytes": 141469181,
+        "sha256": "sha256:fa9e2ac23e905fdcba1fb4f396c57da65fac04c1a3ee4eebbbb85b5ad6b2dc10",
+        "member": "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe"
+      }
+    },
+    "version": "0.153.1",
+    "verified_at": "2026-09-03T22:15:16+00:00"
+  },
+  "setup_catalogue_digest": "sha256:204d778fa296d8cb67c14fce8de807c461737ca1ada580660c8102269c4d7ddb",
+  "previous_software_artifacts": {
     "command": "codex",
     "shape": "gzip-tar",
     "platforms": {
@@ -246,51 +295,6 @@
     },
     "version": "0.153.0",
     "verified_at": "2026-09-03T14:02:48+00:00"
-  },
-  "setup_catalogue_digest": "sha256:7e687386187ac7fcc6c992c8cb3dcb4507fe3b21e6abe321d7cc7dd2b4c921b3",
-  "previous_software_artifacts": {
-    "command": "codex",
-    "shape": "gzip-tar",
-    "platforms": {
-      "linux/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.1-linux-arm64.tgz",
-        "bytes": 120628797,
-        "sha256": "sha256:24c53aa00801f082e4f5312001d8f379705f3b29d539ae20b6a643a836224765",
-        "member": "package/vendor/aarch64-unknown-linux-musl/bin/codex"
-      },
-      "linux/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.1-linux-x64.tgz",
-        "bytes": 128060060,
-        "sha256": "sha256:0ed4978e80117a5e203a436026c37276029a3642d633b6916ab45143d10565cd",
-        "member": "package/vendor/x86_64-unknown-linux-musl/bin/codex"
-      },
-      "macos/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.1-darwin-arm64.tgz",
-        "bytes": 114790306,
-        "sha256": "sha256:a780ff1a424724778f85c1ccb4de3b908ad1804ef09260cd8140a2ceb7e2ab12",
-        "member": "package/vendor/aarch64-apple-darwin/bin/codex"
-      },
-      "macos/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.1-darwin-x64.tgz",
-        "bytes": 122697040,
-        "sha256": "sha256:156f4d0267ca143b5345e795a0ab0867e74ca01a12aa53059d9a2aabf1031598",
-        "member": "package/vendor/x86_64-apple-darwin/bin/codex"
-      },
-      "windows/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.1-win32-arm64.tgz",
-        "bytes": 131309148,
-        "sha256": "sha256:e31d26fbec8056bcaec3309fc5a5176739d6e4eb0214d45f1afd0a8dbf3e5d0a",
-        "member": "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe"
-      },
-      "windows/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.152.1-win32-x64.tgz",
-        "bytes": 140456661,
-        "sha256": "sha256:12d0f736c498891a88ed410dce5305759dc4e780c19362060ea8b0f0dffdce88",
-        "member": "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe"
-      }
-    },
-    "version": "0.152.1",
-    "verified_at": "2026-09-02T00:32:55+00:00"
   },
   "capability_features": {
     "measured_at": "2026-08-30",
