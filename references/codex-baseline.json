@@ -21,12 +21,12 @@
     "desktop_documented_product": "ChatGPT",
     "desktop_pinned_cli_packaging": "Codex.app/Codex.dmg",
     "installer_asset": "install.sh",
-    "installer_release": "rust-v0.153.1",
-    "installed_version": "0.153.1",
+    "installer_release": "rust-v0.153.2",
+    "installed_version": "0.153.2",
     "standalone_layout": "packages/standalone"
   },
   "verified_version_ref": "build/version.json:codex_cli_tested",
-  "verified_at": "2026-09-03T22:15:16+00:00",
+  "verified_at": "2026-09-04T13:31:03+00:00",
   "native_surfaces": {
     "verified_at": "2026-08-31",
     "config_home": "~/.codex",
@@ -212,6 +212,51 @@
     "shape": "gzip-tar",
     "platforms": {
       "linux/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.2-linux-arm64.tgz",
+        "bytes": 121675259,
+        "sha256": "sha256:df2f8f764bf86aeae51d71cc37686dcbd2c24e4bce9a9d1e8f249141fd99fac3",
+        "member": "package/vendor/aarch64-unknown-linux-musl/bin/codex"
+      },
+      "linux/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.2-linux-x64.tgz",
+        "bytes": 129259793,
+        "sha256": "sha256:1fd52113294979c9936a110cab7cb9d5e9d1e28086f112fd6748a05826a9e5a0",
+        "member": "package/vendor/x86_64-unknown-linux-musl/bin/codex"
+      },
+      "macos/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.2-darwin-arm64.tgz",
+        "bytes": 115669249,
+        "sha256": "sha256:151ecdd90b96af823a2828146bff056c8a5f42d2ab4da63a198fe8a4ad84990b",
+        "member": "package/vendor/aarch64-apple-darwin/bin/codex"
+      },
+      "macos/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.2-darwin-x64.tgz",
+        "bytes": 123497670,
+        "sha256": "sha256:ec139bb87cdd25d8038069cef7ff2bdd2d119c7fcf0ac6e26dcc1020573cd112",
+        "member": "package/vendor/x86_64-apple-darwin/bin/codex"
+      },
+      "windows/arm64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.2-win32-arm64.tgz",
+        "bytes": 132143077,
+        "sha256": "sha256:71ba906090143a310354ae5c864d5c677e05842b373cadcf84ef2872f8ddcfa1",
+        "member": "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe"
+      },
+      "windows/x86_64": {
+        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.2-win32-x64.tgz",
+        "bytes": 141510231,
+        "sha256": "sha256:e674587ea13f7051aeae697b1425ec028a236f54fa1dd1a15661ef7c063f2874",
+        "member": "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe"
+      }
+    },
+    "version": "0.153.2",
+    "verified_at": "2026-09-04T13:31:03+00:00"
+  },
+  "setup_catalogue_digest": "sha256:204d778fa296d8cb67c14fce8de807c461737ca1ada580660c8102269c4d7ddb",
+  "previous_software_artifacts": {
+    "command": "codex",
+    "shape": "gzip-tar",
+    "platforms": {
+      "linux/arm64": {
         "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.1-linux-arm64.tgz",
         "bytes": 121697093,
         "sha256": "sha256:3e050251b40b334e74a27c52128b86f8468fa8242d5c8205b04f4b31f85690f7",
@@ -250,51 +295,6 @@
     },
     "version": "0.153.1",
     "verified_at": "2026-09-03T22:15:16+00:00"
-  },
-  "setup_catalogue_digest": "sha256:204d778fa296d8cb67c14fce8de807c461737ca1ada580660c8102269c4d7ddb",
-  "previous_software_artifacts": {
-    "command": "codex",
-    "shape": "gzip-tar",
-    "platforms": {
-      "linux/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.0-linux-arm64.tgz",
-        "bytes": 121658947,
-        "sha256": "sha256:1c65fda30a919908688147b67b1b195ab635bd4a5eac49ffa7be527a13af0a09",
-        "member": "package/vendor/aarch64-unknown-linux-musl/bin/codex"
-      },
-      "linux/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.0-linux-x64.tgz",
-        "bytes": 129210185,
-        "sha256": "sha256:856f408ea61b44a381b7d6fb7c82365dfcef649ae2a340fc01282cf63c30cd8a",
-        "member": "package/vendor/x86_64-unknown-linux-musl/bin/codex"
-      },
-      "macos/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.0-darwin-arm64.tgz",
-        "bytes": 115615644,
-        "sha256": "sha256:ce03d32fe1cb0c4a02bf86a139a43519bb791c2ba6fe56d665c34fcadcbc7c00",
-        "member": "package/vendor/aarch64-apple-darwin/bin/codex"
-      },
-      "macos/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.0-darwin-x64.tgz",
-        "bytes": 123457960,
-        "sha256": "sha256:c636191070281854d869b3ff3f6efe506db81c9eb7035930440c8afb29d626a4",
-        "member": "package/vendor/x86_64-apple-darwin/bin/codex"
-      },
-      "windows/arm64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.0-win32-arm64.tgz",
-        "bytes": 132156833,
-        "sha256": "sha256:e390adc8ef145ea5bf0b687408b0d36ed9abdf879b41265148e3474f4bc81fad",
-        "member": "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe"
-      },
-      "windows/x86_64": {
-        "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.153.0-win32-x64.tgz",
-        "bytes": 141426872,
-        "sha256": "sha256:30f28ce47e7b1c9ba79ceefb60ba9902253f5a1ec831dedc75f120e99e138bdb",
-        "member": "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe"
-      }
-    },
-    "version": "0.153.0",
-    "verified_at": "2026-09-03T14:02:48+00:00"
   },
   "capability_features": {
     "measured_at": "2026-08-30",
