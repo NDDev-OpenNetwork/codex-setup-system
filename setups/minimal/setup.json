@@ -4,5 +4,16 @@
   "description": "Instructions plus the same autonomous approval and sandbox posture as the other standard variants; no extra tools.",
   "sources": [
     "https://learn.chatgpt.com/docs/config-file/config-reference"
+  ],
+  "setup_stable_id": "setup_01M18ZRAF4H0PQP5WXAEXVYBRA",
+  "setup_version": "1.2",
+  "setup_passport_digest": "sha256:d6a44171f4c3bcca441327110accc33a91ae44dd7c3534f6707a8c152be6603c",
+  "component_refs": [
+    {
+      "stable_id": "component_01M18ZRAF4H0PQP5WXAEXVYBRB",
+      "version": "1.2",
+      "passport_digest": "sha256:c1b70a560e3052bca61edf572aecd9fa44f94bd8cdb66ff9f98cde29afa542b4",
+      "adaptation_id": "adaptation_d4726455feb766d258988c597ded0147a3cbfae9381bcc3036a94218e3f2c11f"
+    }
   ]
 }
