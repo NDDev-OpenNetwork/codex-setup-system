@@ -4,5 +4,22 @@
   "description": "Full auto: nothing is asked, nothing is sandboxed, and every capability this build ships as stable-but-off is on. `approval_policy` is never, `sandbox_mode` is danger-full-access, `web_search` is live -- the most capable of the four modes -- and `features.memories`, `features.multi_agent_v2` and `features.recommended_plugins` are enabled, which is all three stable features the 0.151.0 registry leaves off. Measured against that artifact: `config.toml parse ok`, 49 enabled and 3 overridden where the product's own default is 46 and 0. This is a setup posture -- keys in this product's own configuration file. It is not an execution profile and it grants no environment: what it changes is what the product asks you and which of its own tools exist, not what anyone is permitted to run. Higher-authority layers can still clamp it: this file is one layer of ten, and managed requirements constrain rather than merge.",
   "sources": [
     "https://learn.chatgpt.com/docs/config-file/config-reference"
+  ],
+  "setup_stable_id": "setup_01M18ZRD880TMCERVQXXXHPKM5",
+  "setup_version": "1.4",
+  "setup_passport_digest": "sha256:860bef3a111e293bd666b4b4924cdbcc89313935346234d71ff79af7cd8c1816",
+  "component_refs": [
+    {
+      "stable_id": "component_01M18ZRD880TMCERVQXXXHPKM6",
+      "version": "1.4",
+      "passport_digest": "sha256:37cd22690bae1fd1987bc9c16910c7ce8c5a1252253ad72e2c062611bc83257a",
+      "adaptation_id": "adaptation_ff74e5b5a58192777ba334479ecfa454406eb408fe7c2a088a714ac433e16921"
+    },
+    {
+      "stable_id": "component_01M18ZRDTZHPME4X2QJM7180TY",
+      "version": "1.3",
+      "passport_digest": "sha256:d0d2cb39bc4776a59113da129c64cf6e9fc1dcb05130507ebcb755eebf3a95e6",
+      "adaptation_id": "adaptation_30be00e7de92cc6fc65760978b65ab471d57539a2ac379ec894d37ff8aa6ee91"
+    }
   ]
 }

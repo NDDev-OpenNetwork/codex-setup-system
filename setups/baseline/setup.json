@@ -4,5 +4,22 @@
   "description": "A working floor: the same autonomous approval and sandbox posture as the other standard variants, plus `model_reasoning_effort`.",
   "sources": [
     "https://learn.chatgpt.com/docs/config-file/config-reference"
+  ],
+  "setup_stable_id": "setup_01M18ZRBJK2C3E7NEC73MCEYFC",
+  "setup_version": "1.4",
+  "setup_passport_digest": "sha256:b4a137f48ca94e528108156eec63a002d9eb9c0ad101920a37afeafb6f38e434",
+  "component_refs": [
+    {
+      "stable_id": "component_01M18ZRBJK2C3E7NEC73MCEYFD",
+      "version": "1.3",
+      "passport_digest": "sha256:933adc513b9b1afbc16a93a88d41df26918d34a82a067d81ac1ea448375f6f9e",
+      "adaptation_id": "adaptation_f995aca0d7edabda123f499842a13954ab42bc283051f078643baa2f79f6325d"
+    },
+    {
+      "stable_id": "component_01M18ZRC4M3CCGARBB5XT45QEE",
+      "version": "1.3",
+      "passport_digest": "sha256:5f50e3bd747cf620da47ed91e618bf1bf1088972937556d3357c13e78a998316",
+      "adaptation_id": "adaptation_d1aca65943360bccc3597feca9ff8741e512867a3e9d2536d0bfbf3c74c6051c"
+    }
   ]
 }

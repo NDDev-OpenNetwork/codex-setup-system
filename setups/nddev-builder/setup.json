@@ -7,5 +7,46 @@
     "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
     "https://learn.chatgpt.com/docs/config-file/config-reference",
     "https://learn.chatgpt.com/docs/custom-prompts"
+  ],
+  "setup_stable_id": "setup_01M15EN748TQX8H824ERR55JXC",
+  "setup_version": "1.5",
+  "setup_passport_digest": "sha256:a8aa25e6a6793680e4c9482cfb19cf5f36ce1037394c3f366f0dbbf12e5af378",
+  "component_refs": [
+    {
+      "stable_id": "component_01M15EN4BGQVE52XFS5N5N59A1",
+      "version": "1.5",
+      "passport_digest": "sha256:71c47ea9d4ebfc84e02572048b1446a57aa11e5943fa6bbcae9889e7d7d4471d",
+      "adaptation_id": "adaptation_ff74e5b5a58192777ba334479ecfa454406eb408fe7c2a088a714ac433e16921"
+    },
+    {
+      "stable_id": "component_01M15EN4X6QYBNH57WQ6TPT610",
+      "version": "1.4",
+      "passport_digest": "sha256:d04475a01b2e70a570db0a797bcf7ed79500ee8460ddecb357b0395cff11b644",
+      "adaptation_id": "adaptation_30be00e7de92cc6fc65760978b65ab471d57539a2ac379ec894d37ff8aa6ee91"
+    },
+    {
+      "stable_id": "component_01M15EN5F7T35BZ1DKZ7YAY3PF",
+      "version": "1.4",
+      "passport_digest": "sha256:845b25216676474eeb765d79b1d12bbdc9ab2c3126046c50775e1f9d570cffc6",
+      "adaptation_id": "adaptation_d9d9b0cbfe0b5629eb4ff1b6ecbdd9d97b36bfbe56161503a73e31e6280bb3e8"
+    },
+    {
+      "stable_id": "component_01M15EN61B90VBB1P9TZEH82RB",
+      "version": "1.4",
+      "passport_digest": "sha256:7ceaae0b4fac10bc6cde352be28c113657a74f357c286d4df5dc859962b828e8",
+      "adaptation_id": "adaptation_730dcd984c0df6206167f08b949c86669513601898de1777ef3d81c65dbc7da0"
+    },
+    {
+      "stable_id": "component_01M15EN6JGVEZM3JTT4KFB4E1V",
+      "version": "1.4",
+      "passport_digest": "sha256:036b6584dcbbc76bbd0c10c3a832e1b77c99725754e74ced99e61ae501f3cc22",
+      "adaptation_id": "adaptation_2168601637338f345bfaafd89c4194d22d31a3b72edcc88de55ce941dc16dcc8"
+    },
+    {
+      "stable_id": "component_01M1CCZZ8GSX446FZSEJY4PAHB",
+      "version": "1.3",
+      "passport_digest": "sha256:76358499024ce3289d21629550abe8d39eb298ce02e37e4fba878ac1a4fa5536",
+      "adaptation_id": "adaptation_f7f2594afd2bbc2d109735299e249a893d6e12eebbf04148eadbc715f28d4724"
+    }
   ]
 }
