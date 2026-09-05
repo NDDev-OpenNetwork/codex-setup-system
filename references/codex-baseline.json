@@ -251,7 +251,7 @@
     "version": "0.153.2",
     "verified_at": "2026-09-04T13:31:03+00:00"
   },
-  "setup_catalogue_digest": "sha256:2fa0fcc70ab0d6b58206ca910fedce20f128771a833b4420b13e9f06d6eaf15a",
+  "setup_catalogue_digest": "sha256:061e4248815fd17f568f71b63b83e6181c083fb7f04780a129c0584f2fcbe665",
   "previous_software_artifacts": {
     "command": "codex",
     "shape": "gzip-tar",
