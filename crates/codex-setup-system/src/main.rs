@@ -17,7 +17,7 @@ use std::process::ExitCode;
 
 mod software;
 
-use harness_runtime::{Harness, LaunchBinding, Scoped};
+use harness_runtime::{Harness, LaunchBinding, PreservationSurface, Scoped};
 use provider_v3::{ComponentKind, ProjectionKind, TargetScope};
 
 /// Everything specific to Codex CLI, verified against `codex-baseline.json`.
@@ -107,6 +107,24 @@ pub const CODEX: Harness = Harness {
     // Every owned namespace here routes a kind or is filled by a setup,
     // so exact state has something to say about each one.
     custody_namespaces: &[],
+    preservation_surfaces: &[
+        PreservationSurface {
+            scope: None,
+            roots: &["AGENTS.override.md", "skills", "plugins"],
+            excluded: &[
+                "auth.json",
+                "sessions",
+                "history.jsonl",
+                "cache",
+                "shell_snapshots",
+            ],
+        },
+        PreservationSurface {
+            scope: Some(TargetScope::Project),
+            roots: &["AGENTS.override.md"],
+            excluded: &[],
+        },
+    ],
     never_touch: &[
         "auth.json",
         "sessions",
