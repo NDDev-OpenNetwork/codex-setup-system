@@ -55,7 +55,7 @@ what it owns, ask the binary: `codex-setup-system provider-info`.
 | `developer_instructions` | **yes** | The role's prompt. Refused when absent, and it is the one a reader leaves out. |
 | `nickname_candidates` | no | Names an agent spawned with this role may be given. |
 | `model` | no | Model override for sessions spawned with this role. |
-| `model_reasoning_effort` | no | Reasoning effort for the selected model. |
+| `model_reasoning_effort` | no | `low`, `medium`, `high`, `xhigh`, `max` or `ultra` where the selected model supports them; unset means the model's own default, not the parent's effort. |
 | `sandbox_mode` | no | Narrow the spawned session's sandbox policy. |
 | `mcp_servers` | no | Role-specific MCP server configuration. |
 | `skills.config` | no | Skills made available to the spawned session. |

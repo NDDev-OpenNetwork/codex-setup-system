@@ -305,6 +305,7 @@ pub const CODEX: Harness = Harness {
     // one on a disk it was never shipped to.
     embedded_setups: include!(concat!(env!("OUT_DIR"), "/embedded_setups.rs")),
     software: Some(software::SOFTWARE),
+    instruction_region: Some("AGENTS.md"),
 };
 
 fn main() -> ExitCode {
