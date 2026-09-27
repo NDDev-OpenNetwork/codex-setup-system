@@ -262,6 +262,8 @@ Re-measured deliberately rather than left alone: the `agents` row above declined
 
 One false lead resolved while doing it, recorded so the next reader does not chase it: the strings table places `agents/openai.yaml` next to these literals, which would be alarming if it were a path under this home -- `agents` is a namespace this provider removes whole. It is not. It is `skill-creator/agents/openai.yaml`, an asset inside the product's own bundled sample skill, plus a capability-discovery message. Nothing writes into `$CODEX_HOME/agents` but a person and this provider. (measured from the pinned artifact, digest verified before reading (codex 0.150.1); https://learn.chatgpt.com/docs/config-file/config-reference)
 
+**`rules`** -- User-level `~/.codex/rules/*.rules` execpolicy files -- an experimental security-policy surface. A rules file is a sandbox/approval policy statement; a provider owning it would be writing policy, not configuration. ([source](https://developers.openai.com/codex/rules) -- codex-rs/execpolicy)
+
 ## Response
 
 One maintainer. Defects are triaged as time allows; security reports are
