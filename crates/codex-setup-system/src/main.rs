@@ -17,7 +17,7 @@ use std::process::ExitCode;
 
 mod software;
 
-use harness_runtime::{Harness, LaunchBinding, PreservationSurface, Scoped};
+use harness_runtime::{Harness, LaunchBinding, PreservationSurface, Scoped, Shadow};
 use provider_v3::{ComponentKind, ProjectionKind, TargetScope};
 
 /// Everything specific to Codex CLI, verified against `codex-baseline.json`.
@@ -100,10 +100,21 @@ pub const CODEX: Harness = Harness {
     ],
     // The product's own: credentials, session history and runtime caches. Never
     // read, never written, and never copied into a backup slot.
-    // Nothing measured. This product's alternate spellings, if it has
-    // any, have not been asked for -- empty here says nobody looked,
-    // not that the product reads one name.
-    shadowing_names: &[],
+    // One name the product reads and this provider does not own, measured
+    // for this baseline: `AGENTS.override.md` is read before `AGENTS.md`
+    // at global scope and the first non-empty file wins, so a home
+    // holding a non-empty one ignores the instruction file this provider
+    // installs. The same name is a deliberate escape at project scope.
+    // Still not owned -- an override exists so a person can override, and
+    // owning it would let `remove` take that away.
+    shadowing_names: &[Shadow {
+        name: "AGENTS.override.md",
+        over: "AGENTS.md",
+        effect: "read before AGENTS.md at the same scope and only the \
+                 first non-empty file is used, so a present non-empty \
+                 override replaces the instruction file this provider \
+                 installed; an empty one is skipped and silences nothing",
+    }],
     // Every owned namespace here routes a kind or is filled by a setup,
     // so exact state has something to say about each one.
     custody_namespaces: &[],
@@ -742,5 +753,21 @@ mod tests {
         let problems =
             harness_runtime::catalog::misdirecting(HARNESS.provider_id, &catalog.list().unwrap());
         assert!(problems.is_empty(), "{}", problems.join("\n  "));
+    }
+
+    /// The instruction-file shadow the baseline measured is declared, so
+    /// `status` can report a target running a file this provider never wrote
+    /// instead of answering `managed` beside nothing.
+    #[test]
+    fn the_measured_instruction_shadows_are_declared() {
+        let names: Vec<&str> = CODEX
+            .shadowing_names
+            .iter()
+            .map(|shadow| shadow.name)
+            .collect();
+        assert!(
+            names.contains(&"AGENTS.override.md"),
+            "AGENTS.override.md is measured in the baseline and not declared"
+        );
     }
 }
