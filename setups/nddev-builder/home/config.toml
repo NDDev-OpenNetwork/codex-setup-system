@@ -42,7 +42,7 @@ web_search = "live"
 # `[tools] view_image = true`, and for an invented `[tools]` key alike, and
 # `45 · 1` for `[features] view_image = false`. So the instrument does
 # discriminate, and the old key was indistinguishable from one nobody defined.
-# Re-measured on the pinned 0.157.1 build on 2026-09-27: `codex doctor` reads
+# Re-measured on the 0.157.1 build on 2026-09-27: `codex doctor` reads
 # this file as `55 enabled · 3 overridden`, `config.toml parse ok`, and no
 # startup warning on the block.
 #
