@@ -195,7 +195,7 @@
           {
             "path": ".codex/config.toml",
             "reason": "Project-scoped config honoured only inside trusted projects, with an ignored-key list that includes `model_provider`, `notify`, `profile` and `otel`. A provider-owned setup writing it would fight the product's own trust layer and per-user keys it may not contain.",
-            "source": "https://developers.openai.com/codex/config (project config + ignored-key list)",
+            "source": "https://developers.openai.com/codex/config-reference (project config + ignored-key list; the former /codex/config page split into config-basic and config-reference)",
             "note": "Recorded 2026-09-27 during the currency sweep; the surface exists upstream and is not routed to any component kind."
           },
           {
