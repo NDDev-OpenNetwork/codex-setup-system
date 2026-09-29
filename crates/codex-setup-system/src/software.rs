@@ -20,6 +20,60 @@ use harness_runtime::{Artifact, Delivery, Previous, Shape, Software};
 pub(crate) const ARTIFACTS: &[Artifact] = &[
     Artifact {
         platform: "linux/arm64",
+        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.159.1-linux-arm64.tgz",
+        bytes: 155_055_348,
+        sha256: "sha256:c06c0bed5af67fc8d2815a9f756113855f97a05f7c755b45efea3b12bb060b1a",
+        shape: Shape::GzipTar,
+        member: "package/vendor/aarch64-unknown-linux-musl/bin/codex",
+    },
+    Artifact {
+        platform: "linux/x86_64",
+        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.159.1-linux-x64.tgz",
+        bytes: 162_497_372,
+        sha256: "sha256:9d6476abf421afe566c7afade3bb3c4aa1586c6f673c6a9e346b625e6b19561f",
+        shape: Shape::GzipTar,
+        member: "package/vendor/x86_64-unknown-linux-musl/bin/codex",
+    },
+    Artifact {
+        platform: "macos/arm64",
+        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.159.1-darwin-arm64.tgz",
+        bytes: 133_916_568,
+        sha256: "sha256:1dd7f5612d51b8c5347ad0f950f5ccc9cd5fdaf1de57c436616c01d21c4af259",
+        shape: Shape::GzipTar,
+        member: "package/vendor/aarch64-apple-darwin/bin/codex",
+    },
+    Artifact {
+        platform: "macos/x86_64",
+        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.159.1-darwin-x64.tgz",
+        bytes: 142_838_417,
+        sha256: "sha256:62375093db474df7067f2f3fbbea772fb00a177caa11683ea6694af718255979",
+        shape: Shape::GzipTar,
+        member: "package/vendor/x86_64-apple-darwin/bin/codex",
+    },
+    Artifact {
+        platform: "windows/arm64",
+        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.159.1-win32-arm64.tgz",
+        bytes: 151_255_481,
+        sha256: "sha256:a0b26da5cb8307bbffae90877a931be542221a460a20122818a34b2bc3e41459",
+        shape: Shape::GzipTar,
+        member: "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe",
+    },
+    Artifact {
+        platform: "windows/x86_64",
+        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.159.1-win32-x64.tgz",
+        bytes: 161_808_975,
+        sha256: "sha256:06316f97864f0a0e8a15e564018c90ec158681a51c7ef2e462181d9f2cee38ef",
+        shape: Shape::GzipTar,
+        member: "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe",
+    },
+];
+
+/// The artifacts 0.158.0 was published as, kept so
+/// `software_update` has a version to move from and `rollback` a tree to
+/// return to. Measured from bytes when it was the current pin.
+pub(crate) const PREVIOUS_ARTIFACTS: &[Artifact] = &[
+    Artifact {
+        platform: "linux/arm64",
         url: "https://registry.npmjs.org/@openai/codex/-/codex-0.158.0-linux-arm64.tgz",
         bytes: 154_764_938,
         sha256: "sha256:f4ce42757e10140e0b2f0c916e72941c707d3e5d7d90922465df99268cf53f22",
@@ -68,68 +122,14 @@ pub(crate) const ARTIFACTS: &[Artifact] = &[
     },
 ];
 
-/// The artifacts 0.157.1 was published as, kept so
-/// `software_update` has a version to move from and `rollback` a tree to
-/// return to. Measured from bytes when it was the current pin.
-pub(crate) const PREVIOUS_ARTIFACTS: &[Artifact] = &[
-    Artifact {
-        platform: "linux/arm64",
-        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-linux-arm64.tgz",
-        bytes: 142_975_101,
-        sha256: "sha256:b73d482c0963a69d5cece5fe16e919473359937c22fb4499702ea35870e1824f",
-        shape: Shape::GzipTar,
-        member: "package/vendor/aarch64-unknown-linux-musl/bin/codex",
-    },
-    Artifact {
-        platform: "linux/x86_64",
-        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-linux-x64.tgz",
-        bytes: 150_336_017,
-        sha256: "sha256:7f12677740f439fe4884c7031d9d703e571cecf5ea9fa3a05abd1bbccc2162a8",
-        shape: Shape::GzipTar,
-        member: "package/vendor/x86_64-unknown-linux-musl/bin/codex",
-    },
-    Artifact {
-        platform: "macos/arm64",
-        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-darwin-arm64.tgz",
-        bytes: 132_984_756,
-        sha256: "sha256:c5196640f2e5e1c9a4e1a1c1247ad32f0cbe6b19e7063db39d1204306344b283",
-        shape: Shape::GzipTar,
-        member: "package/vendor/aarch64-apple-darwin/bin/codex",
-    },
-    Artifact {
-        platform: "macos/x86_64",
-        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-darwin-x64.tgz",
-        bytes: 141_687_693,
-        sha256: "sha256:77b26c00f5398c619f8b036092b064ae7ffe4391ae3b5370c457f93c64e9008c",
-        shape: Shape::GzipTar,
-        member: "package/vendor/x86_64-apple-darwin/bin/codex",
-    },
-    Artifact {
-        platform: "windows/arm64",
-        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-win32-arm64.tgz",
-        bytes: 150_603_367,
-        sha256: "sha256:634981182d54dcd305de02599336f0c6e2b6d540a549a55eb6191d2bf5292a3a",
-        shape: Shape::GzipTar,
-        member: "package/vendor/aarch64-pc-windows-msvc/bin/codex.exe",
-    },
-    Artifact {
-        platform: "windows/x86_64",
-        url: "https://registry.npmjs.org/@openai/codex/-/codex-0.157.1-win32-x64.tgz",
-        bytes: 160_979_646,
-        sha256: "sha256:a3362ca85d6ca27e2f88e6ee0b4790717b5e6909af54bdece49bdbdb41eaa2c6",
-        shape: Shape::GzipTar,
-        member: "package/vendor/x86_64-pc-windows-msvc/bin/codex.exe",
-    },
-];
-
 /// Codex's program, and where its bytes come from.
 pub(crate) const SOFTWARE: Software = Software {
-    version: "0.158.0",
+    version: "0.159.1",
     command: "codex",
     delivery: Delivery::Artifacts(ARTIFACTS),
     unsupported: &[],
     previous: Some(Previous {
-        version: "0.157.1",
+        version: "0.158.0",
         artifacts: PREVIOUS_ARTIFACTS,
     }),
 };
