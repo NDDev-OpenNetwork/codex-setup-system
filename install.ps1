@@ -8,7 +8,7 @@
 [CmdletBinding()]
 param(
   [string]$Version = "0.0.81",
-  [string]$InstallDir = "$env:LOCALAPPDATA\Programs\codex-setup-system"
+  [string]$InstallDir = $(if ($env:CODEX_INSTALL_DIR) { $env:CODEX_INSTALL_DIR } else { "$env:LOCALAPPDATA\Programs\codex-setup-system" })
 )
 $ErrorActionPreference = "Stop"
 

@@ -69,9 +69,9 @@ what it owns, ask the binary: `codex-setup-system provider-info`.
 
 ## Before you ship one
 
-- **The surface is declared, so the component is a promise.** Every kind   this provider declares is a promise of a rollback. A component written   to a path the declaration does not carry is installed by nobody and   removed by nobody.
-- **Name it once.** Where the product derives identity from the directory   or the filename, the frontmatter `name` is either redundant or a second   place to be wrong. Keep them equal.
-- **Read it back.** After an install, look at the file where the product   reads it, not at the step that put it there.
+- **The surface is declared, so the component is a promise.** Every kind  this provider declares is a promise of a rollback. A component written  to a path the declaration does not carry is installed by nobody and  removed by nobody.
+- **Name it once.** Where the product derives identity from the directory  or the filename, the frontmatter `name` is either redundant or a second  place to be wrong. Keep them equal.
+- **Read it back.** After an install, look at the file where the product  reads it, not at the step that put it there.
 
 ## Command
 
@@ -115,9 +115,9 @@ Generated from the same rows as the section above, for every harness in this est
 
 ## Before you ship one
 
-- **The surface is declared, so the component is a promise.** Every kind   this provider declares is a promise of a rollback. A component written   to a path the declaration does not carry is installed by nobody and   removed by nobody.
-- **Name it once.** Where the product derives identity from the directory   or the filename, the frontmatter `name` is either redundant or a second   place to be wrong. Keep them equal.
-- **Read it back.** After an install, look at the file where the product   reads it, not at the step that put it there.
+- **The surface is declared, so the component is a promise.** Every kind  this provider declares is a promise of a rollback. A component written  to a path the declaration does not carry is installed by nobody and  removed by nobody.
+- **Name it once.** Where the product derives identity from the directory  or the filename, the frontmatter `name` is either redundant or a second  place to be wrong. Keep them equal.
+- **Read it back.** After an install, look at the file where the product  reads it, not at the step that put it there.
 
 ## Hook
 
@@ -178,9 +178,9 @@ Generated from the same rows as the section above, for every harness in this est
 
 ## Before you ship one
 
-- **The surface is declared, so the component is a promise.** Every kind   this provider declares is a promise of a rollback. A component written   to a path the declaration does not carry is installed by nobody and   removed by nobody.
-- **Name it once.** Where the product derives identity from the directory   or the filename, the frontmatter `name` is either redundant or a second   place to be wrong. Keep them equal.
-- **Read it back.** After an install, look at the file where the product   reads it, not at the step that put it there.
+- **The surface is declared, so the component is a promise.** Every kind  this provider declares is a promise of a rollback. A component written  to a path the declaration does not carry is installed by nobody and  removed by nobody.
+- **Name it once.** Where the product derives identity from the directory  or the filename, the frontmatter `name` is either redundant or a second  place to be wrong. Keep them equal.
+- **Read it back.** After an install, look at the file where the product  reads it, not at the step that put it there.
 
 # The Commands This Program Answers
 
@@ -202,14 +202,15 @@ restore   [--backup <ref>] --target <dir>     the last backup, or a named one
 hold      --backup <ref> [--reason <why>] --target <dir>
 release   --backup <ref> --target <dir>
 remove    --target <dir>                      the files this program recorded writing
+adopt     --target <dir>                      take over a target the earlier provider left
 software  --prefix <dir>                      which product versions a prefix holds
 rollback  --to <version> --prefix <dir>       point the command at one already there
 ```
 
 There is no `--json` on these. JSON is the **provider** surface --
 `provider-info`, `status --target <dir> --json`, `validate-bundle`,
-`plan-operation`, `apply-operation`, `recover-operation` -- and a consumer calls
-those.
+`plan-operation`, `apply-operation`, `recover-operation`, `launch` -- and a
+consumer calls those.
 
 ## Invariants worth knowing before changing anything
 
@@ -352,8 +353,8 @@ When changing provider implementation, run that checkout's CI checks:
 
 ```bash
 cargo fmt --all --check
-cargo clippy --workspace --all-targets -- -D warnings
-cargo test --workspace
+cargo clippy --locked --all-targets -- -D warnings
+cargo test --locked --all-targets
 ```
 
 Report each result and any unavailable check. The cargo commands apply only
