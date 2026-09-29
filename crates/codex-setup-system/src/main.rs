@@ -184,10 +184,10 @@ pub const CODEX: Harness = Harness {
         // `developer_instructions` is refused by name when absent. The consumer
         // reproduced it against the same binary before either side moved.
         //
-        // The stanza form still works and excludes its own file from the scan,
-        // so this setup's builder role stays the pair -- a setup owning two
-        // files it declares, which is a different thing from a component, and
-        // was the half of the old reasoning that was true.
+        // The stanza form still works and excludes its own file from the scan;
+        // this setup's builder role ships as the standalone
+        // `agents/nddev-builder.toml` -- one file, declared like any other
+        // payload member.
         ComponentKind::Agent,
     ],
     projection_kinds: &[
@@ -671,10 +671,10 @@ mod tests {
             "{}",
             examined.problems.join("\n  ")
         );
-        // codex ships no skill and no agent file: its skills are `user_root` only and its agent is a role declared in `config.toml`. **Zero is the right number and it is the reason this count exists** -- the assertion below it was green here while examining nothing, and nobody could tell that from the six harnesses where it examined something.
+        // Codex ships no SKILL.md and no markdown agent: its skills are `user_root` only and its agent is the standalone `agents/nddev-builder.toml`. **One is the right number and it is the reason this count exists** -- the assertion below it was green on every harness while the guard examined nothing at all here, and the count is what makes the subject visible.
         assert_eq!(
-            examined.entry_points, 0,
-            "the description guard examined {} entry points, not 0",
+            examined.entry_points, 1,
+            "the description guard examined {} entry points, not 1",
             examined.entry_points
         );
     }
@@ -708,7 +708,7 @@ mod tests {
     }
     /// Three postures, on every one of the seven.
     ///
-    /// `baseline` is a working floor, `minimal` is the product's own defaults,
+    /// `baseline` is a working floor, `minimal` is the shared autonomous posture and nothing else,
     /// and `full-auto` asks nothing and sandboxes nothing. A caller who learns
     /// them on one product knows them on all seven, which is the whole reason
     /// the names are the estate's rather than each harness's.

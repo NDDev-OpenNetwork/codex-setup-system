@@ -24,15 +24,15 @@ instructions, agents, commands, hooks and settings together, in one step.
 
 ```bash
 codex-setup-system list
-codex-setup-system install baseline    --target ~/.tool-config
-codex-setup-system status              --target ~/.tool-config
-codex-setup-system select full-auto    --target ~/.tool-config
-codex-setup-system diff                --target ~/.tool-config
-codex-setup-system reinstall           --target ~/.tool-config
-codex-setup-system backups             --target ~/.tool-config
-codex-setup-system hold --backup slot-000000000001 --reason "before the experiment" --target ~/.tool-config
-codex-setup-system restore --backup slot-000000000001 --target ~/.tool-config
-codex-setup-system remove              --target ~/.tool-config
+codex-setup-system install baseline    --target ~/.codex
+codex-setup-system status              --target ~/.codex
+codex-setup-system select full-auto    --target ~/.codex
+codex-setup-system diff                --target ~/.codex
+codex-setup-system reinstall           --target ~/.codex
+codex-setup-system backups             --target ~/.codex
+codex-setup-system hold --backup slot-000000000001 --reason "before the experiment" --target ~/.codex
+codex-setup-system restore --backup slot-000000000001 --target ~/.codex
+codex-setup-system remove              --target ~/.codex
 ```
 
 Every command takes an explicit `--target`. There is no default and no fallback
@@ -47,8 +47,8 @@ seven setup systems, expressed in each product's own format:
 
 | | |
 | --- | --- |
-| `baseline` | a working floor: instructions plus a conservative configuration |
-| `minimal` | the product's own defaults, and the state a restore proves it can reach |
+| `baseline` | a working floor: instructions plus the shared autonomous posture |
+| `minimal` | instructions plus the shared autonomous posture, and nothing else |
 | `full-auto` | nothing asked and nothing sandboxed, in this product's own keys |
 | `nddev-builder` | the full-auto posture plus the product-native NDDev authoring toolkit |
 
