@@ -220,10 +220,10 @@ pub const CODEX: Harness = Harness {
         // who else reads it is a question about behaviour rather than routing.
         // The `user_root` skill question has the same shape.
     ],
-    // One scope. Codex's project surfaces live under `.codex/` in a workspace, which is a
-    // different root rather than a second scope of this target.
+    // Two scopes. Codex's project surfaces live under the workspace root --
+    // `AGENTS.md` at it, `.codex/hooks.json` keeping its product-owned parent --
+    // and the user-level `.agents` root is a third home entirely.
     //
-    // Empty rather than absent: a harness that owns one target says so.
     // The one root in this estate that belongs to a convention rather than to a
     // product. `learn.chatgpt.com/docs/build-skills` names `$HOME/.agents/skills`
     // as the user-level skills directory -- a *sibling* of `~/.codex`, not a

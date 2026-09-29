@@ -167,8 +167,6 @@ Configuration home as the product documents it: `~/.codex`.
 | `prompts` | `command` | [source](https://learn.chatgpt.com/docs/custom-prompts) |
 | `agents` | `agent` | [source](https://github.com/openai/codex/blob/rust-v0.151.0/codex-rs/agent-roles/src/discovery.rs) -- routing measured by running the 0.151.0 binary against a temporary CODEX_HOME |
 
-A path routing no component kind is owned so a setup can carry it;
-nothing compiles a component to it.
 
 ### A second target: `target_scope: user_root`
 
@@ -188,9 +186,12 @@ by a restore.
 
 ### A second target: `target_scope: project`
 
-Rooted at `project root`, which is not the configuration home
-above. A consumer reaches it by naming the scope on the request, and
-every path below is relative to that root.
+This scope's target is the workspace root rather than the
+configuration home above; the scope record names its anchor
+`project root`. A consumer reaches it by naming the scope on
+the request, and every path below is relative to the workspace
+root -- where the product owns a directory there, that directory
+is part of the path.
 
 | Path | Component kinds routed here | Decided by |
 | --- | --- | --- |

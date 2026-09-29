@@ -223,7 +223,7 @@
       "file": "config.toml",
       "grammar": "toml",
       "accepts_comments": true,
-      "note": "TOML, so `#` comments are part of the grammar. No JSON schema is possible for it and none is expected; the setups are checked by parsing instead.",
+      "note": "TOML, so `#` comments are part of the grammar. A JSON schema cannot be embedded in it, and none was expected when this was measured; the setups are checked by parsing instead.\n\n**Corrected 2026-09-29: the vendor does publish one.** A `config-schema.json` asset ships with each release and is recorded under `configuration_schema`; a TOML file carries no `$schema` line, which is what this sentence meant by 'possible', and the schema still answers whether a written key is a key the product has.",
       "measured_at": "2026-08-28"
     },
     "projection_basis": {}
@@ -281,7 +281,7 @@
     "version": "0.158.0",
     "verified_at": "2026-09-28T14:26:56+00:00"
   },
-  "setup_catalogue_digest": "sha256:38ea677a1b5ebbb65bd1347ac5e3ae22778eee45a2a3f8361f943c08500319a4",
+  "setup_catalogue_digest": "sha256:a366a07c80e41fd1980129989d0631a0028a95003f201410f73f8ee134d03c82",
   "previous_software_artifacts": {
     "command": "codex",
     "shape": "gzip-tar",
@@ -330,7 +330,7 @@
     "measured_at": "2026-09-27",
     "measured_against": "0.157.1",
     "evidence": "ran",
-    "source": "codex features list + codex doctor on the installed 0.157.1 build (the pinned version), 2026-09-27; registry source https://github.com/openai/codex/blob/rust-v0.157.1/codex-rs/features/src/lib.rs",
+    "source": "codex features list + codex doctor on the installed 0.157.1 build (the pin at that date; 0.158.0 now), 2026-09-27; registry source https://github.com/openai/codex/blob/rust-v0.157.1/codex-rs/features/src/lib.rs",
     "registry_size": 150,
     "stable": 47,
     "stable_and_off_by_default": [

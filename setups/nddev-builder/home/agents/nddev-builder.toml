@@ -436,7 +436,9 @@ Never change the running agent's active configuration in place.
 | comments | **parse** |
 | home moved by | `CODEX_HOME` |
 
-TOML, so `#` comments are part of the grammar. No JSON schema is possible for it and none is expected; the setups are checked by parsing instead.
+TOML, so `#` comments are part of the grammar. A JSON schema cannot be embedded in it, and none was expected when this was measured; the setups are checked by parsing instead.
+
+**Corrected 2026-09-29: the vendor does publish one.** A `config-schema.json` asset ships with each release and is recorded under `configuration_schema`; a TOML file carries no `$schema` line, which is what this sentence meant by 'possible', and the schema still answers whether a written key is a key the product has.
 
 ## The same question on the other harnesses
 
@@ -452,8 +454,7 @@ TOML, so `#` comments are part of the grammar. No JSON schema is possible for it
 
 **A comment is not a stylistic choice.** In a strict-JSON file a `//` is
 a parse error, and the product does not start rather than starting
-without your setting. Two of the seven take comments; the rest do not,
-and one of those takes them at two spellings of the same file.
+without your setting. Three of the seven take comments; the rest do not, and one of those takes them at two spellings of the same file.
 
 ## Before you write one
 
@@ -468,7 +469,7 @@ and one of those takes them at two spellings of the same file.
 - **A value here may not be the effective one.** Where an administrator
   layer exists it clamps everything below it, so a setup can install,
   verify and restore cleanly on a managed machine and change nothing.
-  the `nddev-surfaces` prompt, and `codex-setup-system provider-info`, records which layers this product has and
+  The `nddev-surfaces` prompt and `codex-setup-system provider-info` record which layers this product has and
   what was searched for the ones it does not.
 
 
@@ -503,10 +504,10 @@ This row stays `page` because **a path built by joining a directory to a name at
 | `pi` | `AGENTS.md` | file |
 
 **They are not interchangeable, and the difference is not only the
-name.** One of the seven takes a *directory* of rules rather than a
+name.** Two of the seven take a *directory* of rules rather than a
 single document, so a file moved between the two is not a rename.
 
-**Some products read a neighbour's.** the `nddev-surfaces` prompt, and `codex-setup-system provider-info`, records
+**Some products read a neighbour's.** The `nddev-surfaces` prompt and `codex-setup-system provider-info` record
 every such cross-read this estate has measured, on the declined rows:
 a file written for one product can change what a second one sees, and
 removing a setup can change what a third one sees. That is a property
@@ -550,15 +551,16 @@ is preserved, and re-applying identical bytes is a no-op.
   as a mid-apply surprise.
 
 
-# The second target this harness owns
+# The scoped targets this harness owns
 
 ## `target_scope: user_root`, rooted at `~/.agents`
 
 **`~/.agents` is not this product's configuration home.** It is a
 different target, reached by a consumer naming the scope on the
-request, and every path below is relative to that root rather than
-to the home -- writing the root into the path again would nest it
-twice, which is a mistake this estate has made and shipped.
+request, and every path below is relative to that root rather
+than to the home -- writing the root into the path again would
+nest it twice, which is a mistake this estate has made and
+shipped.
 
 | path | routes | decided by | exercised by |
 |---|---|---|---|
@@ -594,11 +596,12 @@ into a slot here and never reverted out of one.
 
 ## `target_scope: project`, rooted at `project root`
 
-**`project root` is not this product's configuration home.** It is a
-different target, reached by a consumer naming the scope on the
-request, and every path below is relative to that root rather than
-to the home -- writing the root into the path again would nest it
-twice, which is a mistake this estate has made and shipped.
+**This scope's target is the workspace root** (the record names
+its anchor `project root`), not this product's configuration home.
+It is a different target, reached by a consumer naming the
+scope on the request, and every path below is relative to the
+workspace root -- a product-owned directory stays part of the
+path.
 
 | path | routes | decided by | exercised by |
 |---|---|---|---|
