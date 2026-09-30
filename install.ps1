@@ -7,7 +7,7 @@
 #   powershell -ExecutionPolicy Bypass -File install.ps1 -Version 0.1.0
 [CmdletBinding()]
 param(
-  [string]$Version = "0.0.86",
+  [string]$Version = "0.0.87",
   [string]$InstallDir = $(if ($env:CODEX_INSTALL_DIR) { $env:CODEX_INSTALL_DIR } else { "$env:LOCALAPPDATA\Programs\codex-setup-system" })
 )
 $ErrorActionPreference = "Stop"
