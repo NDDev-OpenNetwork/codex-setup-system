@@ -14,7 +14,7 @@ set -eu
 
 REPO="NDDev-OpenNetwork/codex-setup-system"
 BINARY="codex-setup-system"
-VERSION="${1:-0.0.91}"
+VERSION="${1:-0.0.92}"
 PREFIX="${CODEX_INSTALL_DIR:-$HOME/.local/bin}"
 
 case "$(uname -s)" in
