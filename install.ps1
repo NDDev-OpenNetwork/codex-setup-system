@@ -12,7 +12,7 @@ param(
 )
 $ErrorActionPreference = "Stop"
 
-$repo   = "NDDev-Technocracy-OpenNetwork/codex-setup-system"
+$repo   = "NDDev-Technocracy-Archive/codex-setup-system"
 $binary = "codex-setup-system"
 $arch   = switch ($env:PROCESSOR_ARCHITECTURE) {
   "AMD64" { "x86_64" }
