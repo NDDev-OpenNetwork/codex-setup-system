@@ -12,7 +12,7 @@
 #   sh install.sh 0.1.0        # a specific release
 set -eu
 
-REPO="NDDev-Technocracy-OpenNetwork/codex-setup-system"
+REPO="NDDev-Technocracy-Archive/codex-setup-system"
 BINARY="codex-setup-system"
 VERSION="${1:-0.0.94}"
 PREFIX="${CODEX_INSTALL_DIR:-$HOME/.local/bin}"
