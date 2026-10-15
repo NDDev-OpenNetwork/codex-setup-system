@@ -5,7 +5,7 @@ repository:
   display_name: "codex-setup-system"
   roles:
     - "project"
-  lifecycle: "archived"
+  lifecycle: maintenance
 
 provider:
   type: "github"
